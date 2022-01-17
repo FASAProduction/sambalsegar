@@ -71,6 +71,8 @@ class Pemesanan extends CI_Controller {
         $data['filter'] = $this->pemesanan->date_filter($awal,$akhir)->result();
         $data['filter_count'] = $this->pemesanan->date_filter($awal,$akhir)->num_rows();
         $data['n'] = 1;
+        $data['aw'] = $awal;
+        $data['akh'] = $akhir;
         $this->load->view('panel/templates/header', $data);
         $this->load->view('panel/pemesanan/filter', $data);
         $this->load->view('panel/templates/footer');

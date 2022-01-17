@@ -2,7 +2,8 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Filter pencarian dari tanggal .... sampai tanggal ......</h1>
+    <h1 class="h3 mb-4 text-gray-800">Filter pencarian dari tanggal <?php echo $aw; ?> sampai tanggal
+        <?php echo $akh; ?></h1>
 
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -43,7 +44,9 @@
 
                 </div>
                 <div class="col-md-12">
-                    <a href="#" class="btn btn-info btn-block">Download Excel</a>
+                    <a href="<?php echo base_url('panel/periodicpdf'); ?>?from=<?php echo $aw; ?>&&to=<?php echo $akh; ?>"
+                        class="btn btn-info btn-block">Download
+                        Excel</a>
                 </div>
             </div>
             <br />
