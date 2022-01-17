@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Tabel Data Pemesanan</h1>
+    <h1 class="h3 mb-4 text-gray-800">Filter pencarian dari tanggal .... sampai tanggal ......</h1>
 
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -42,6 +42,9 @@
                     </form>
 
                 </div>
+                <div class="col-md-12">
+                    <a href="#" class="btn btn-info btn-block">Download Excel</a>
+                </div>
             </div>
             <br />
             <div class="table-responsive">
@@ -58,31 +61,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($record as $row): ?>
+                        <?php foreach($filter as $rowa): ?>
                         <tr>
                             <td><?= $n++; ?></td>
-                            <td><?= $row['nama_lengkap']; ?></td>
-                            <td><?= $row['tanggal']; ?></td>
-                            <td><?= $row['total']; ?></td>
+                            <td><?= $rowa->nama_lengkap; ?></td>
+                            <td><?= $rowa->tanggal; ?></td>
+                            <td><?= $rowa->total; ?></td>
                             <td>
-                                <?php if($row['status_bayar'] == 'Sudah Bayar'): ?>
+                                <?php if($rowa->status_bayar == 'Sudah Bayar'): ?>
                                 <span class="badge badge-primary">Sudah Bayar</span>
                                 <?php else: ?>
                                 <span class="badge badge-danger">Belum Bayar</span>
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <?php if($row['status_kirim'] == 'Dikemas'): ?>
+                                <?php if($rowa->status_kirim == 'Dikemas'): ?>
                                 <span class="badge badge-info">Dikemas</span>
-                                <?php elseif($row['status_kirim'] == 'Dikirim'): ?>
+                                <?php elseif($rowa->status_kirim == 'Dikirim'): ?>
                                 <span class="badge badge-primary">Dikirim</span>
                                 <?php else: ?>
                                 <span class="badge badge-success">Selesai</span>
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <?php if($row['status_bayar'] == 'Belum Bayar'): ?>
-                                <a href="<?= base_url('panel/pemesanan/paid/' . $row['id_transaksi']); ?>"
+                                <?php if($rowa->status_bayar == 'Belum Bayar'): ?>
+                                <a href="<?= base_url('panel/pemesanan/paid/' . $rowa->id_transaksi); ?>"
                                     class="btn btn-primary"
                                     onclick="return confirm('Ubah status bayar menjadi sudah bayar?')">
                                     <i class="fas fa-money-bill-wave"></i>
@@ -93,13 +96,13 @@
                                 </a>
                                 <?php endif; ?>
 
-                                <?php if($row['status_kirim'] == 'Dikemas'): ?>
-                                <a href="<?= base_url('panel/pemesanan/send/' . $row['id_transaksi']); ?>"
+                                <?php if($rowa->status_kirim == 'Dikemas'): ?>
+                                <a href="<?= base_url('panel/pemesanan/send/' . $rowa->id_transaksi); ?>"
                                     class="btn btn-info" onclick="return confirm('Ubah status kirim menjadi dikirim?')">
                                     <i class="fas fa-truck"></i>
                                 </a>
-                                <?php elseif($row['status_kirim'] == 'Dikirim'): ?>
-                                <a href="<?= base_url('panel/pemesanan/done/' . $row['id_transaksi']); ?>"
+                                <?php elseif($rowa->status_kirim == 'Dikirim'): ?>
+                                <a href="<?= base_url('panel/pemesanan/done/' . $rowa->id_transaksi); ?>"
                                     class="btn btn-primary"
                                     onclick="return confirm('Ubah status kirim menjadi selesai?')">
                                     <i class="fas fa-check-double"></i>
@@ -110,7 +113,7 @@
                                 </a>
                                 <?php endif; ?>
 
-                                <a href="<?= base_url('panel/pemesanan/list/' . $row['id_transaksi']); ?>"
+                                <a href="<?= base_url('panel/pemesanan/list/' . $rowa->id_transaksi); ?>"
                                     class="btn btn-warning">
                                     <i class="fas fa-list"></i>
                                 </a>

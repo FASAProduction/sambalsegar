@@ -64,4 +64,23 @@ class Pemesanan extends CI_Controller {
         redirect('panel/pemesanan');
     }
 
+    public function filter(){
+        $awal = $this->input->post('awal');
+        $akhir = $this->input->post('akhir');
+        $data['title'] = "Hasil filter";
+        $data['filter'] = $this->pemesanan->date_filter($awal,$akhir)->result();
+        $data['filter_count'] = $this->pemesanan->date_filter($awal,$akhir)->num_rows();
+        $data['n'] = 1;
+        $this->load->view('panel/templates/header', $data);
+        $this->load->view('panel/pemesanan/filter', $data);
+        $this->load->view('panel/templates/footer');
+    }
+
+    public function filter_this_month(){
+        $data['judul'] = "Hasil filter";
+        $data['f_this_month'] = $this->pemesanan->date_filter_this_month()->result();
+        $data['f_this_month_count'] = $this->pemesanan->date_filter_this_month()->num_rows();
+        $this->load->view('panel/pemesanan/filter_month', $data);
+    }
+
 }

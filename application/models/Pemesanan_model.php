@@ -31,4 +31,14 @@ class Pemesanan_model extends CI_Model {
         $this->db->insert('detail_transaksi', $data);
     }
 
+    function date_filter($awal, $akhir){
+        $w = $this->db->query("SELECT * FROM transaksi
+        JOIN detail_transaksi
+        ON transaksi.id_transaksi=detail_transaksi.id_transaksi
+        JOIN pelanggan
+        ON pelanggan.id_pelanggan=transaksi.id_pelanggan
+        WHERE tanggal BETWEEN '$awal' AND '$akhir'");
+        return $w;
+    }
+
 }
