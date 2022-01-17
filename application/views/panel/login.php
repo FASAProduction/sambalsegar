@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sambal Resep Njenot - Masuk</title>
+    <title>Sambal Resep Njenot - Authentification</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet" type="text/css">
@@ -40,13 +40,13 @@
                                     <form class="user" method="POST">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="text" class="form-control"
-                                                name="email" id="email" placeholder="Masukkan email">
+                                            <input type="text" class="form-control" name="email" id="email"
+                                                placeholder="Masukkan email">
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input type="password" class="form-control"
-                                                name="password" id="password" placeholder="Masukkan password">
+                                            <input type="password" class="form-control" name="password" id="password"
+                                                placeholder="Masukkan password">
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-block">Masuk</button>
                                     </form>

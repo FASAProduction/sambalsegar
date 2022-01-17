@@ -63,72 +63,41 @@
     <section class="product-area shop-sidebar shop section">
         <div class="container">
             <div class="row mb-4">
-                <div class="col-md-6">
-                    <h3 class="mb-2">Masuk</h3>
-                    <?php
-                    if($this->session->flashdata('done')){ echo $this->session->flashdata('done'); }else{
-                    ?>
-                    <p class="mb-4">Silahkan masuk terlebih dahulu untuk melakukan transaksi.</p>
-                    <?php } ?>
-                    <form method="post">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Password">
-                            <small><a href="<?php echo base_url('forgot'); ?>">Lupa Password?</a></small>
-                        </div>
-                        <button type="submit" class="btn">Masuk</button>
-                        <button type="reset" class="btn">Reset</button>
-                    </form>
+                <div class="col-md-4">
                 </div>
-                <div class="col-md-6">
-                    <h3 class="mb-2">Buat Akun.</h3>
-                    <p class="mb-4">Silahkan buat akun terlebih dahulu.</p>
-                    <form method="post" action="<?php echo base_url('auth/register'); ?>">
+                <?php
+                if($mail_count > 0){
+                ?>
+                <div class="col-md-4">
+                    <h3 class="mb-2">Email Ditemukan!</h3>
+                    <p class="mb-4">Masukkan password baru Anda.</p>
+                    <?php
+                    foreach($mail as $cust):
+                    ?>
+                    <form method="post" action="<?php echo base_url('forgot/success'); ?>">
+                    <input type="hidden" name="id_pelanggan" value="<?php echo $cust->id_pelanggan; ?>" />
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email Anda" required>
+                            <input type="email" name="email" class="form-control" value="<?php echo $cust->email; ?>" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Password Anda"
-                                required>
+                            <label for="password">Password Baru</label>
+                            <input type="password" name="password" class="form-control" placeholder="Password baru Anda">
                         </div>
-                        <div class="form-group">
-                            <label for="nama">Nama Lengkap</label>
-                            <input type="text" name="nama_lengkap" class="form-control" placeholder="Nama Lengkap Anda"
-                                required>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" name="jenis_kelamin" required>
-                                <option value="">-- Pilih salah satu jenis kelamin Anda --</option>
-                                <option value="Laki-Laki">Laki-Laki</option>
-                                <option value="Perempuan">Perempuan</option>
-                            </select>
-                        </div>
-                        <br/>
-                        <br/>
-                        <div class="form-group">
-                            <label for="tgllahir">Tanggal Lahir</label>
-                            <input type="date" class="form-control" name="tanggal_lahir"
-                                placeholder="Tanggal Lahir Anda" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="alamat">Alamat</label>
-                            <textarea class="form-control" name="alamat" rows="10" placeholder="Masukkan Alamat Anda"
-                                required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="telepon">Nomor HP</label>
-                            <input type="number" class="form-control" name="telepon" placeholder="Nomor Telepon Anda"
-                                required>
-                        </div>
-                        <button type="submit" class="btn">Buat Akun</button>
+                        <button type="submit" class="btn">Ubah Password</button>
                         <button type="reset" class="btn">Reset</button>
                     </form>
+                    <?php endforeach; ?>
+                </div>
+                <?php }else{ ?>
+                <div class="col-md-4">
+                    <h3 class="mb-2">Email Tidak Ditemukan!</h3>
+                    
+                    <p class="mb-4">Tips: Masukkan email dengan teliti dan pastikan terdaftar di database kami.</p>
+                    <a href="<?php echo base_url('forgot'); ?>" class="btn">Kembali</a>
+                </div>
+                <?php } ?>
+                <div class="col-md-4">
                 </div>
             </div>
         </div>

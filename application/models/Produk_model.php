@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Produk_model extends CI_Model {
 
     public function get($where = null){
-        $this->db->join('produsen', 'produsen.id_produsen=produk.id_produsen');
 
         if($where != null){
             $this->db->where($where);

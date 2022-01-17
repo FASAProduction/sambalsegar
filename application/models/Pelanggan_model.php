@@ -46,4 +46,19 @@ class Pelanggan_model extends CI_Model {
         $this->db->delete('pelanggan', ['id_pelanggan' => $id_pelanggan]);
     }
 
+    public function add_cust($email,$password,$nama_lengkap,$jenis_kelamin,$tanggal_lahir,$alamat,$telepon){
+        $f = $this->db->query("INSERT INTO pelanggan (email,password,nama_lengkap,jenis_kelamin,tanggal_lahir,alamat,telepon) VALUES ('$email','$password','$nama_lengkap','$jenis_kelamin','$tanggal_lahir','$alamat','$telepon')");
+        return $f;
+    }
+
+    public function forgot($email){
+        $d = $this->db->query("SELECT * FROM pelanggan WHERE email='$email'");
+        return $d;
+    }
+
+    public function change($id_pelanggan,$password){
+        $q = $this->db->query("UPDATE pelanggan SET password='$password' WHERE id_pelanggan='$id_pelanggan'");
+        return $q;
+    }
+
 }

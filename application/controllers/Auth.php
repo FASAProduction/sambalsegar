@@ -5,7 +5,6 @@ class Auth extends CI_Controller {
 
     public function __construct(){
         parent::__construct();
-        $this->load->library('form_validation');
         $this->load->model('pelanggan_model', 'pelanggan');
         $this->load->model('keranjang_model', 'keranjang');
     }
@@ -38,11 +37,25 @@ class Auth extends CI_Controller {
                 redirect('home');
                 // echo "OK!";
             }else{
+                $this->session->set_flashdata('done', '<div class="alert alert-danger"><b>GAGAL MASUK!</b> Cek kembali email dan password Anda.</div>');
                 redirect('auth');
             }
         }else{
             redirect('auth');
         }
+    }
+
+    public function register(){
+        $email = $this->input->post('email');
+        $password = sha1($this->input->post('password'));
+        $nama_lengkap = $this->input->post('nama_lengkap');
+        $jenis_kelamin = $this->input->post('jenis_kelamin');
+        $tanggal_lahir = $this->input->post('tanggal_lahir');
+        $alamat = $this->input->post('alamat');
+        $telepon = $this->input->post('telepon');
+        $this->pelanggan->add_cust($email,$password,$nama_lengkap,$jenis_kelamin,$tanggal_lahir,$alamat,$telepon);
+        $this->session->set_flashdata('done', '<div class="alert alert-success"><b>BERHASIL BUAT AKUN!</b> Siahkan login dengan akun yang Anda buat.</div>');
+        redirect('auth');
     }
 
     public function logout(){

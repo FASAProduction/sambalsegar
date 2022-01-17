@@ -13,7 +13,9 @@
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/vendor/sbadmin/css/sb-admin-2.min.css'); ?>" rel="stylesheet">
@@ -66,12 +68,6 @@
                 <a class="nav-link" href="<?= base_url('panel/pelanggan'); ?>">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Data Pelanggan</span></a>
-            </li>
-
-            <li class="nav-item  <?= ($title == 'Data Produsen') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('panel/produsen'); ?>">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Data Produsen</span></a>
             </li>
 
             <li class="nav-item  <?= ($title == 'Data Produk') ? 'active' : ''; ?>">
@@ -134,7 +130,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $this->session->userdata('nama_lengkap'); ?></span>
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $this->session->userdata('nama_lengkap'); ?></span>
                                 <img class="img-profile rounded-circle"
                                     src="<?= base_url('assets/vendor/sbadmin/img/undraw_profile.svg'); ?>">
                             </a>
