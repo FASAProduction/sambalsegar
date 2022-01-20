@@ -89,6 +89,11 @@
                     <i class="fas fa-fw fa-truck"></i>
                     <span>Pemesanan</span></a>
             </li>
+            <li class="nav-item  <?= ($title == 'Laporan') ? 'active' : ''; ?>">
+                <a class="nav-link" href="<?= base_url('panel/laporan'); ?>">
+                    <i class="fas fa-fw fa-file-pdf"></i>
+                    <span>Laporan</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
