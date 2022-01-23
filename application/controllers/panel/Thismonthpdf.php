@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Periodicpdf extends CI_Controller {
+class Thismonthpdf extends CI_Controller {
 
     function __construct(){
         parent::__construct();
@@ -9,8 +9,34 @@ class Periodicpdf extends CI_Controller {
 
 	function index()
 	{
-        $awal = $this->input->get('from');
-        $akhir = $this->input->get('to');
+        $bulan_ini = date('m');
+        $tahun_ini = date('Y');
+
+        if($bulan_ini == '01'){
+            $bulan = "Januari";
+        }else if($bulan_ini == '02'){
+            $bulan = "Februari";
+        }else if($bulan_ini == '03'){
+            $bulan = "Maret";
+        }else if($bulan_ini == '04'){
+            $bulan = "April";
+        }else if($bulan_ini == '05'){
+            $bulan = "Mei";
+        }else if($bulan_ini == '06'){
+            $bulan = "Juni";
+        }else if($bulan_ini == '07'){
+            $bulan = "Juli";
+        }else if($bulan_ini == '08'){
+            $bulan = "Agustus";
+        }else if($bulan_ini == '09'){
+            $bulan = "September";
+        }else if($bulan_ini == '10'){
+            $bulan = "Oktober";
+        }else if($bulan_ini == '11'){
+            $bulan = "November";
+        }else{
+            $bulan = "Desember";
+        }
         
         $pdf = new FPDF('P', 'mm','Letter');
 
@@ -18,8 +44,7 @@ class Periodicpdf extends CI_Controller {
 
         $pdf->SetFont('Courier','B',16);
         $pdf->Cell(0,7,'SAMBAL RESEP NJENOT',0,1,'C');
-        $pdf->Cell(0,7,'LAPORAN PENJUALAN DARI TANGGAL ' .$awal. '' ,0,1,'C');
-        $pdf->Cell(0,7,'HINGGA TANGGAL ' .$akhir. '' ,0,1,'C');
+        $pdf->Cell(0,7,'LAPORAN PENJUALAN BULAN INI (' .$bulan. ' ' . $tahun_ini . ')',0,1,'C');
         $pdf->Cell(10,7,'',0,1);
 
         $pdf->SetFont('Courier','B',10);
@@ -39,7 +64,7 @@ class Periodicpdf extends CI_Controller {
         ON pelanggan.id_pelanggan=transaksi.id_pelanggan
         JOIN produk
         ON produk.id_produk=detail_transaksi.id_produk
-        WHERE tanggal BETWEEN '$awal' AND '$akhir' AND status_kirim='Selesai'")->result();
+        WHERE MONTH(tanggal) = '$bulan_ini'")->result();
         $no=1;
         foreach ($barang as $data){
             $pdf->Cell(8,6,$no,1,0);
@@ -50,13 +75,39 @@ class Periodicpdf extends CI_Controller {
             $pdf->Cell(35,6,"Rp ".number_format($data->total, 0, ".", "."),1,1);
             $no++;
         }
-        $pdf->Output('Laporan_SRN_Dari_Tgl_'.$awal.'_Sampai_Tgl_'.$akhir.'.pdf','I');
+        $pdf->Output('Laporan_Bulan_'.$bulan.'_'.$tahun_ini.'.pdf','I');
 	}
 
     function download()
 	{
-        $awal = $this->input->get('from');
-        $akhir = $this->input->get('to');
+        $bulan_ini = date('m');
+        $tahun_ini = date('Y');
+
+        if($bulan_ini == '01'){
+            $bulan = "Januari";
+        }else if($bulan_ini == '02'){
+            $bulan = "Februari";
+        }else if($bulan_ini == '03'){
+            $bulan = "Maret";
+        }else if($bulan_ini == '04'){
+            $bulan = "April";
+        }else if($bulan_ini == '05'){
+            $bulan = "Mei";
+        }else if($bulan_ini == '06'){
+            $bulan = "Juni";
+        }else if($bulan_ini == '07'){
+            $bulan = "Juli";
+        }else if($bulan_ini == '08'){
+            $bulan = "Agustus";
+        }else if($bulan_ini == '09'){
+            $bulan = "September";
+        }else if($bulan_ini == '10'){
+            $bulan = "Oktober";
+        }else if($bulan_ini == '11'){
+            $bulan = "November";
+        }else{
+            $bulan = "Desember";
+        }
         
         $pdf = new FPDF('P', 'mm','Letter');
 
@@ -64,8 +115,7 @@ class Periodicpdf extends CI_Controller {
 
         $pdf->SetFont('Courier','B',16);
         $pdf->Cell(0,7,'SAMBAL RESEP NJENOT',0,1,'C');
-        $pdf->Cell(0,7,'LAPORAN PENJUALAN DARI TANGGAL ' .$awal. '' ,0,1,'C');
-        $pdf->Cell(0,7,'HINGGA TANGGAL ' .$akhir. '' ,0,1,'C');
+        $pdf->Cell(0,7,'LAPORAN PENJUALAN BULAN INI (' .$bulan. ' ' . $tahun_ini . ')',0,1,'C');
         $pdf->Cell(10,7,'',0,1);
 
         $pdf->SetFont('Courier','B',10);
@@ -85,7 +135,7 @@ class Periodicpdf extends CI_Controller {
         ON pelanggan.id_pelanggan=transaksi.id_pelanggan
         JOIN produk
         ON produk.id_produk=detail_transaksi.id_produk
-        WHERE tanggal BETWEEN '$awal' AND '$akhir' AND status_kirim='Selesai'")->result();
+        WHERE MONTH(tanggal) = '$bulan_ini'")->result();
         $no=1;
         foreach ($barang as $data){
             $pdf->Cell(8,6,$no,1,0);
@@ -96,7 +146,7 @@ class Periodicpdf extends CI_Controller {
             $pdf->Cell(35,6,"Rp ".number_format($data->total, 0, ".", "."),1,1);
             $no++;
         }
-        $pdf->Output('Laporan_SRN_Dari_Tgl_'.$awal.'_Sampai_Tgl_'.$akhir.'.pdf','D');
+        $pdf->Output('Laporan_SRN_Bulan_'.$bulan.'_'.$tahun_ini.'.pdf','D');
 	}
 }
 
