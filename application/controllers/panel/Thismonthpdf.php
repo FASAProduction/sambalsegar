@@ -38,7 +38,7 @@ class Thismonthpdf extends CI_Controller {
             $bulan = "Desember";
         }
         
-        $pdf = new FPDF('P', 'mm','Letter');
+        $pdf = new FPDF('P', 'mm','A4');
 
         $pdf->AddPage();
 
@@ -51,9 +51,8 @@ class Thismonthpdf extends CI_Controller {
 
         $pdf->Cell(8,6,'No',1,0,'C');
         $pdf->Cell(60,6,'Nama Barang',1,0,'C');
-        $pdf->Cell(20,6,'Qty',1,0,'C');
-        $pdf->Cell(40,6,'Pelanggan',1,0,'C');
-        $pdf->Cell(35,6,'Subtotal',1,0,'C');
+        $pdf->Cell(10,6,'Qty',1,0,'C');
+        $pdf->Cell(75,6,'Pelanggan',1,0,'C');
         $pdf->Cell(35,6,'Total',1,1,'C');
 
         $pdf->SetFont('Courier','',10);
@@ -64,17 +63,32 @@ class Thismonthpdf extends CI_Controller {
         ON pelanggan.id_pelanggan=transaksi.id_pelanggan
         JOIN produk
         ON produk.id_produk=detail_transaksi.id_produk
-        WHERE MONTH(tanggal) = '$bulan_ini'")->result();
+        WHERE MONTH(tanggal) = '$bulan_ini' AND status_kirim='Selesai'")->result();
         $no=1;
         foreach ($barang as $data){
             $pdf->Cell(8,6,$no,1,0);
             $pdf->Cell(60,6,$data->nama_produk,1,0);
-            $pdf->Cell(20,6,$data->qty,1,0);
-            $pdf->Cell(40,6,$data->nama_lengkap,1,0);
-            $pdf->Cell(35,6,"Rp ".number_format($data->subtotal, 0, ".", "."),1,0);
+            $pdf->Cell(10,6,$data->qty,1,0);
+            $pdf->Cell(75,6,$data->nama_lengkap,1,0);
             $pdf->Cell(35,6,"Rp ".number_format($data->total, 0, ".", "."),1,1);
             $no++;
         }
+		
+		$tot = $this->db->query("SELECT SUM(total) as bulan_ini FROM transaksi 
+        JOIN detail_transaksi 
+        ON transaksi.id_transaksi=detail_transaksi.id_transaksi
+        JOIN pelanggan
+        ON pelanggan.id_pelanggan=transaksi.id_pelanggan
+        JOIN produk
+        ON produk.id_produk=detail_transaksi.id_produk
+        WHERE MONTH(tanggal) = '$bulan_ini' AND status_kirim='Selesai'")->result();
+		
+		foreach($tot as $total){
+		$pdf->Cell(10,7,'',0,1);
+		$pdf->setFont('Courier','B','15');
+		$pdf->Cell(6,7,'Total penjualan bulan ' . $bulan . ' : Rp ' .number_format($total->bulan_ini, 0, '.', '.'). '',0,1,'L');
+		}
+		
         $pdf->Output('Laporan_Bulan_'.$bulan.'_'.$tahun_ini.'.pdf','I');
 	}
 
@@ -109,7 +123,7 @@ class Thismonthpdf extends CI_Controller {
             $bulan = "Desember";
         }
         
-        $pdf = new FPDF('P', 'mm','Letter');
+        $pdf = new FPDF('P', 'mm','A4');
 
         $pdf->AddPage();
 
@@ -122,9 +136,8 @@ class Thismonthpdf extends CI_Controller {
 
         $pdf->Cell(8,6,'No',1,0,'C');
         $pdf->Cell(60,6,'Nama Barang',1,0,'C');
-        $pdf->Cell(20,6,'Qty',1,0,'C');
-        $pdf->Cell(40,6,'Pelanggan',1,0,'C');
-        $pdf->Cell(35,6,'Subtotal',1,0,'C');
+        $pdf->Cell(10,6,'Qty',1,0,'C');
+        $pdf->Cell(75,6,'Pelanggan',1,0,'C');
         $pdf->Cell(35,6,'Total',1,1,'C');
 
         $pdf->SetFont('Courier','',10);
@@ -135,17 +148,31 @@ class Thismonthpdf extends CI_Controller {
         ON pelanggan.id_pelanggan=transaksi.id_pelanggan
         JOIN produk
         ON produk.id_produk=detail_transaksi.id_produk
-        WHERE MONTH(tanggal) = '$bulan_ini'")->result();
+        WHERE MONTH(tanggal) = '$bulan_ini' AND status_kirim='Selesai'")->result();
         $no=1;
         foreach ($barang as $data){
             $pdf->Cell(8,6,$no,1,0);
             $pdf->Cell(60,6,$data->nama_produk,1,0);
-            $pdf->Cell(20,6,$data->qty,1,0);
-            $pdf->Cell(40,6,$data->nama_lengkap,1,0);
-            $pdf->Cell(35,6,"Rp ".number_format($data->subtotal, 0, ".", "."),1,0);
+            $pdf->Cell(10,6,$data->qty,1,0);
+            $pdf->Cell(75,6,$data->nama_lengkap,1,0);
             $pdf->Cell(35,6,"Rp ".number_format($data->total, 0, ".", "."),1,1);
             $no++;
         }
+		
+		$tot = $this->db->query("SELECT SUM(total) as bulan_ini FROM transaksi 
+        JOIN detail_transaksi 
+        ON transaksi.id_transaksi=detail_transaksi.id_transaksi
+        JOIN pelanggan
+        ON pelanggan.id_pelanggan=transaksi.id_pelanggan
+        JOIN produk
+        ON produk.id_produk=detail_transaksi.id_produk
+        WHERE MONTH(tanggal) = '$bulan_ini' AND status_kirim='Selesai'")->result();
+		
+		foreach($tot as $total){
+		$pdf->Cell(10,7,'',0,1);
+		$pdf->setFont('Courier','B','15');
+		$pdf->Cell(6,7,'Total penjualan bulan ' . $bulan . ' : Rp ' .number_format($total->bulan_ini, 0, '.', '.'). '',0,1,'L');
+		}
         $pdf->Output('Laporan_SRN_Bulan_'.$bulan.'_'.$tahun_ini.'.pdf','D');
 	}
 }
