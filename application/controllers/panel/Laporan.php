@@ -34,11 +34,4 @@ class Laporan extends CI_Controller {
         $this->load->view('panel/templates/footer');
     }
 
-    public function filter_this_month(){
-        $data['judul'] = "Hasil filter";
-        $data['f_this_month'] = $this->laporan->date_filter_this_month()->result();
-        $data['f_this_month_count'] = $this->laporan->date_filter_this_month()->num_rows();
-        $this->load->view('panel/laporan/filter_month', $data);
-    }
-
 }
