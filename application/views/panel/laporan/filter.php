@@ -23,7 +23,7 @@
                             <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-filter"></i>
                                 Filter</button>
                             <a href="<?php echo base_url('panel/periodicpdf'); ?>?from=<?php echo $aw; ?>&to=<?php echo $akh; ?>"
-                                class="btn btn-info"><i class="fas fa-fw fa-eye"></i> Preview PDF</a>
+                                class="btn btn-info" target="__blank"><i class="fas fa-fw fa-eye"></i> Preview PDF</a>
                             <a href="<?php echo base_url('panel/periodicpdf/download'); ?>?from=<?php echo $aw; ?>&to=<?php echo $akh; ?>"
                                 class="btn btn-success"><i class="fas fa-fw fa-download"></i> Download PDF</a>
                         </div>

@@ -31,6 +31,7 @@ class Auth extends CI_Controller {
                 $data = [
                     'id_pelanggan' => $pelanggan['id_pelanggan'],
                     'nama_lengkap' => $pelanggan['nama_lengkap'],
+                    'status_login' => "masuk",
                 ];
 
                 $this->session->set_userdata($data);

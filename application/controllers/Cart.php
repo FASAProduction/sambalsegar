@@ -72,7 +72,6 @@ class Cart extends CI_Controller {
                 'id_transaksi' => $id_transaksi,
                 'id_produk' => $row['id_produk'],
                 'qty' => $row['qty'],
-                'harga' => $row['harga'],
                 'subtotal' => $sum,
             ];
             $this->pemesanan->insert_detail_transaksi($data);
