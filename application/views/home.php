@@ -5,7 +5,8 @@
     <!-- Meta Tag -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name='copyright' content=''>
+    <meta name='copyright' content='Sambal RN'>
+    <meta name="description" content="Sebuah website ecommerce penjualan sambal" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Title Tag  -->
@@ -38,6 +39,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/reset.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/style.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/responsive.css'); ?>">
+    <link rel="manifest" href="<?=base_url('assets/js/manifest.json') ?>">
 </head>
 
 <body class="js">
@@ -202,6 +204,13 @@
     <script src="<?= base_url('assets/js/swmin.js'); ?>"></script>
 
     <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('<?=base_url('assets/js/swmin.js') ?>');
+        });
+    }
+
+
     UpUp.start({
         'cache-version': 'v2',
         'content-url': '<?=base_url($this->uri->segment(1))?>',

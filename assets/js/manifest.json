@@ -1,0 +1,24 @@
+{
+	"name": "Sambal RN App",
+	"short_name": "SRN",
+	"description": "Sebuah website ecommerce penjualan sambal",
+	"lang": "id-ID",
+	"dir": "ltr",
+	"theme_color": "#414f57",
+	"start_url": "../../",
+	"background_color": "#000",
+	"display": "standalone",
+	"orientation": "portrait-primary",
+	"icons": [
+		{
+			"src": "../../assets/img/srn-logo.png",
+			"sizes": "72x72",
+			"type": "image/png"
+		},
+		{
+			"src": "../../assets/img/srn-logo.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
+}
