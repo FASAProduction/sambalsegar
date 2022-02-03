@@ -199,6 +199,16 @@
     <script src="<?= base_url('assets/vendor/eshop/js/easing.js'); ?>"></script>
     <!-- Active JS -->
     <script src="<?= base_url('assets/vendor/eshop/js/active.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/swmin.js'); ?>"></script>
+
+    <script>
+    UpUp.start({
+        'cache-version': 'v2',
+        'content-url': '<?=base_url($this->uri->segment(1))?>',
+        'content': 'Tidak bisa menggapai website. Cek koneksi Anda.',
+        'service-worker-url': '<?=base_url('assets/js/swmin.js') ?>'
+    });
+    </script>
 </body>
 
 </html>
