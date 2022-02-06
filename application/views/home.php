@@ -39,7 +39,41 @@
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/reset.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/style.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/responsive.css'); ?>">
-    <link rel="manifest" href="<?=base_url('assets/js/manifest.json') ?>">
+    <link rel="manifest" href="<?=base_url('assets/js/manifest.webmanifest') ?>">
+    <style>
+    .addto {
+        position: fixed;
+        right: -183px;
+        bottom: 60px;
+        z-index: 999;
+        color: #fff;
+    }
+
+    .addtohome {
+        position: fixed;
+        right: 16px;
+        bottom: 50px;
+        z-index: 999;
+        width: 178px;
+        height: 36px;
+        border-radius: 20px 20px;
+        box-shadow: 0px 0px 7px 2px #d9d9d9;
+        background-color: #00098a;
+    }
+
+    .modaal {
+        box-shadow: 0px 0px 0px 0px #000;
+        right: 538px;
+        bottom: 205px;
+        position: fixed;
+        z-index: 999;
+        border-radius: 20px 20px;
+    }
+	
+	.lengkung{
+		border-radius: 20px 20px;
+	}
+    </style>
 </head>
 
 <body class="js">
@@ -66,7 +100,43 @@
                 <div class="col-md-12">
                     <div class="row">
                         <?php foreach($record as $row): ?>
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <?php
+						if($this->agent->is_mobile()){
+						?>
+						<div class="col-lg-3 col-md-6 col-6">
+                            <div class="single-product lengkung">
+                                <div class="product-img">
+                                    <a href="#">
+                                        <img class="default-img" src="<?= base_url('upload/' . $row['gambar']); ?>"
+                                            alt="#">
+                                        <img class="hover-img" src="<?= base_url('upload/' . $row['gambar']); ?>"
+                                            alt="#">
+                                    </a>
+                                    <div class="button-head">
+                                        <div class="product-action-2">
+                                            <?php
+											if($this->session->userdata('status_login') == "masuk"){
+											?>
+                                            <a title="Masukkan keranjang"
+                                                href="<?= base_url('cart/add/' . $row['id_produk']); ?>">Masukkan
+                                                keranjang</a>
+                                            <?php }else{ ?>
+                                            <a title="Masukkan keranjang" href="<?= base_url('auth'); ?>">Masukkan
+                                                keranjang</a>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-content">
+                                    <h3><a href="#"><?= $row['nama_produk']; ?></a></h3>
+                                    <div class="product-price">
+                                        <span>Rp.<?= number_format($row['harga'], 2, ",", "."); ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						<?php }else{ ?>
+						<div class="col-lg-3 col-md-6 col-12">
                             <div class="single-product">
                                 <div class="product-img">
                                     <a href="#">
@@ -98,6 +168,7 @@
                                 </div>
                             </div>
                         </div>
+						<?php } ?>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -105,7 +176,7 @@
         </div>
     </section>
     <!--/ End Product Style 1  -->
-
+    
     <!-- Start Footer Area -->
     <footer class="footer">
         <!-- Footer Top -->
@@ -116,8 +187,8 @@
                         <!-- Single Widget -->
                         <div class="single-footer about">
                             <div class="logo">
-                                <a href="index.html"><img src="<?= base_url('assets/img/srn-logo-white.png'); ?>"
-                                        alt="#"></a>
+                                <a href="<?php echo base_url(); ?>"><img
+                                        src="<?= base_url('assets/img/srn-logo-white.png'); ?>" alt="#"></a>
                             </div>
                             <p class="text">Sambal Resep Njenot merupakan sebuah sambal dengan beraneka ragam rasa.</p>
                             <p class="call">Punya pertanyaan? Hubungi kami.<span><a>0852 5749 5886</a></span></p>
@@ -201,22 +272,20 @@
     <script src="<?= base_url('assets/vendor/eshop/js/easing.js'); ?>"></script>
     <!-- Active JS -->
     <script src="<?= base_url('assets/vendor/eshop/js/active.js'); ?>"></script>
-    <script src="<?= base_url('assets/js/swmin.js'); ?>"></script>
-
+    <script src="<?= base_url('assets/js/service-worker.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/addto.js'); ?>"></script>
     <script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('<?=base_url('assets/js/swmin.js') ?>');
-        });
+	    if ('serviceWorker' in navigator) {
+      // Register a service worker hosted at the root of the
+      // site using the default scope.
+      navigator.serviceWorker.register('<?=base_url('assets/js/service-worker.js') ?>').then(function(registration) {
+        console.log('Service worker registration succeeded:', registration);
+      }, /*catch*/ function(error) {
+        console.log('Service worker registration failed:', error);
+      });
+    } else {
+      console.log('Service workers are not supported.');
     }
-
-
-    UpUp.start({
-        'cache-version': 'v2',
-        'content-url': '<?=base_url($this->uri->segment(1))?>',
-        'content': 'Tidak bisa menggapai website. Cek koneksi Anda.',
-        'service-worker-url': '<?=base_url('assets/js/swmin.js') ?>'
-    });
     </script>
 </body>
 

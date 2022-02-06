@@ -1,276 +1,216 @@
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
-	<!-- Meta Tag -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name='copyright' content=''>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Title Tag  -->
-  <title>Sambal Resep Njenot - Pesanan</title>
-	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="<?= base_url('assets/vendor/eshop/images/favicon.png'); ?>">	
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/bootstrap.css'); ?>">
-	<!-- Magnific Popup -->
-  <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/magnific-popup.min.css'); ?>">
-	<!-- Font Awesome -->
-  <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/font-awesome.css'); ?>">
-	<!-- Fancybox -->
-	<link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/jquery.fancybox.min.css'); ?>">
-	<!-- Themify Icons -->
-  <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/themify-icons.css'); ?>">
-	<!-- Jquery Ui -->
-  <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/jquery-ui.css'); ?>">
-	<!-- Nice Select CSS -->
-  <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/niceselect.css'); ?>">
-	<!-- Animate CSS -->
-  <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/animate.css'); ?>">
-	<!-- Flex Slider CSS -->
-  <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/flex-slider.min.css'); ?>">
-	<!-- Owl Carousel -->
-  <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/owl-carousel.css'); ?>">
-	<!-- Slicknav -->
-  <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/slicknav.min.css'); ?>">
-	<!-- Eshop StyleSheet -->
-	<link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/reset.css'); ?>">
-	<link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/style.css'); ?>">
-  <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/responsive.css'); ?>">
+    <!-- Meta Tag -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='copyright' content=''>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title Tag  -->
+    <title>Sambal Resep Njenot - Pesanan</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="<?= base_url('assets/vendor/eshop/images/favicon.png'); ?>">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/bootstrap.css'); ?>">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/magnific-popup.min.css'); ?>">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/font-awesome.css'); ?>">
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/jquery.fancybox.min.css'); ?>">
+    <!-- Themify Icons -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/themify-icons.css'); ?>">
+    <!-- Jquery Ui -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/jquery-ui.css'); ?>">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/niceselect.css'); ?>">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/animate.css'); ?>">
+    <!-- Flex Slider CSS -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/flex-slider.min.css'); ?>">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/owl-carousel.css'); ?>">
+    <!-- Slicknav -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/slicknav.min.css'); ?>">
+    <!-- Eshop StyleSheet -->
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/reset.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/style.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/responsive.css'); ?>">
+    <style>
+    .lengkung {
+        border-radius: 20px 20px;
+    }
+    </style>
 </head>
+
 <body class="js">
-	
-	<!-- Preloader -->
-	<div class="preloader">
-		<div class="preloader-inner">
-			<div class="preloader-icon">
-				<span></span>
-				<span></span>
-			</div>
-		</div>
-	</div>
-	<!-- End Preloader -->
-		
-		<!-- Header -->
-		<header class="header shop">
-			<!-- Topbar -->
-			<div class="topbar">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-4 col-md-12 col-12">
-							<!-- Top Left -->
-							<div class="top-left">
-								<ul class="list-main">
-									<li><i class="ti-headphone-alt"></i> 0852 5749 5886</li>
-								</ul>
-							</div>
-							<!--/ End Top Left -->
-						</div>
-						<div class="col-lg-8 col-md-12 col-12">
-							<!-- Top Right -->
-							<div class="right-content">
-								<ul class="list-main">
-									<?php if($this->session->userdata('id_pelanggan')): ?>
-										<!-- login -->
-										<li><i class="ti-user"></i> Hai, <?= $this->session->userdata('nama_lengkap'); ?></li>
-										<li><i class="ti-power-off"></i> <a href="<?= base_url('auth/logout'); ?>">Keluar</a></li>
-									<?php else: ?>
-										<!-- logout -->
-										<li><i class="ti-user"></i> Selamat Datang</li>
-										<li><i class="ti-power-off"></i> <a href="<?= base_url('auth'); ?>">Masuk</a></li>
-									<?php endif; ?>
-								</ul>
-							</div>
-							<!-- End Top Right -->
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End Topbar -->
-			<div class="middle-inner">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-2 col-md-2 col-12">
-							<!-- Logo -->
-							<div class="logo">
-								<a href="#"><img src="<?= base_url('assets/img/srn-logo.png'); ?>" alt="logo"></a>
-							</div>
-							<!--/ End Logo -->
-							<!-- Search Form -->
-							<div class="search-top">
-								<div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
-								<!-- Search Form -->
-								<div class="search-top">
-									<form class="search-form">
-										<input type="text" placeholder="Cari produk disini..." name="search">
-										<button value="search" type="submit"><i class="ti-search"></i></button>
-									</form>
-								</div>
-								<!--/ End Search Form -->
-							</div>
-							<!--/ End Search Form -->
-							<div class="mobile-nav"></div>
-						</div>
-						<div class="col-lg-8 col-md-7 col-12">
-							<div class="search-bar-top">
-								<div class="search-bar">
-									<form>
-										<input name="search" placeholder="Cari produk disini..." type="search">
-										<button class="btnn"><i class="ti-search"></i></button>
-									</form>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-2 col-md-3 col-12">
-							<div class="right-bar">
-								<!-- Search Form -->
-								<div class="sinlge-bar shopping">
-									<a href="<?= base_url('cart'); ?>" class="single-icon"><i class="ti-bag"></i> <span class="total-count"><?= $total_cart; ?></span></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Header Inner -->
-			<div class="header-inner">
-				<div class="container">
-					<div class="cat-nav-head">
-						<div class="row">
-							<div class="col-12">
-								<div class="menu-area">
-									<!-- Main Menu -->
-									<nav class="navbar navbar-expand-lg">
-										<div class="navbar-collapse">	
-											<div class="nav-inner">	
-												<ul class="nav main-menu menu navbar-nav">
-													<li><a href="<?= base_url(); ?>">Beranda</a></li>
-													<?php if($this->session->userdata('id_pelanggan')): ?>
-														<li class="active"><a href="<?= base_url('order'); ?>">Pesanan</a></li>
-														<li><a href="<?= base_url('profile'); ?>">Profil Saya</a></li>
-													<?php endif; ?>
-													<li><a href="<?= base_url('about'); ?>">Tentang Kami</a></li>
-												</ul>
-											</div>
-										</div>
-									</nav>
-									<!--/ End Main Menu -->	
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--/ End Header Inner -->
-		</header>
-		<!--/ End Header -->
-		
-		<!-- Product Style -->
-		<section class="product-area shop-sidebar shop section">
-			<div class="container">
-                <h3 class="mb-4">Pesanan</h3>
-                <table class="table table-bordered table-stripped">
-					<thead>
-						<tr>
-							<th>No</th>
-							<th>Nama Pelanggan</th>
-							<th>Tanggal</th>
-							<th>Total</th>
-							<th>Status Bayar</th>
-							<th>Status Kirim</th>
-						</tr>
-					</thead>
-					<tbody>
-                        <?php foreach($record as $row): ?>
-                        <tr>
-                            <td><?= $n++; ?></td>
-                            <td><?= $row['nama_lengkap']; ?></td>
-                            <td><?= $row['tanggal']; ?></td>
-                            <td>Rp.<?= number_format($row['total'], 2, ",", "."); ?></td>
-                            <td>
-								<?php if($row['status_bayar'] == 'Sudah Bayar'): ?>
-									<span class="badge badge-primary">Sudah Bayar</span>
-								<?php else: ?>
-									<span class="badge badge-danger">Belum Bayar</span>
-								<?php endif; ?>
-							</td>
-                            <td>
-								<?php if($row['status_kirim'] == 'Dikemas'): ?>
-									<span class="badge badge-info">Dikemas</span>
-								<?php elseif($row['status_kirim'] == 'Dikirim'): ?>
-									<span class="badge badge-primary">Dikirim</span>
-								<?php else: ?>
-									<span class="badge badge-success">Selesai</span>
-								<?php endif; ?>
-							</td>
-                        </tr>
-						<?php endforeach; ?>
-					</tbody>
-				</table>
-			</div>
-		</section>
-		<!--/ End Product Style 1  -->
-		
-		<!-- Start Footer Area -->
-		<footer class="footer">
-			<!-- Footer Top -->
-			<div class="footer-top section">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-12">
-							<!-- Single Widget -->
-							<div class="single-footer about">
-								<div class="logo">
-									<a href="index.html"><img src="<?= base_url('assets/img/srn-logo-white.png'); ?>" alt="#"></a>
-								</div>
-								<p class="text">Sambal Resep Njenot merupakan sebuah sambal dengan beraneka ragam rasa.</p>
-								<p class="call">Punya pertanyaan? Hubungi kami.<span><a>0852 5749 5886</a></span></p>
-							</div>
-							<!-- End Single Widget -->
-						</div>
-						<div class="col-lg-6 col-md-6 col-12">
-							<!-- Single Widget -->
-							<div class="single-footer social">
-								<h4>Temukan Kami Di</h4>
-								<!-- Single Widget -->
-								<div class="contact">
-									<ul>
-										<li>Jln. Laksa Adisucipto Km. 7,5</li>
-										<li>Desa Santan Gang No. 09 No Rumah 69C, Maguoharjo, Depok, Sleman</li>
-										<li>info@resepnjenot.com</li>
-										<li>0852 5749 5886</li>
-									</ul>
-								</div>
-								<!-- End Single Widget -->
-							</div>
-							<!-- End Single Widget -->
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End Footer Top -->
-			<div class="copyright">
-				<div class="container">
-					<div class="inner">
-						<div class="row">
-							<div class="col-lg-6 col-12">
-								<div class="left">
-									<p>Copyright © 2021 Sambal Resep Njenot.</p>
-								</div>
-							</div>
-							<div class="col-lg-6 col-12">
-								<div class="right">
-									<img src="<?= base_url('assets/vendor/eshop/images/payments.png'); ?>" alt="#">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
-		<!-- /End Footer Area -->
-	
-	
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- End Preloader -->
+
+    <!-- Header -->
+    <?php $this->load->view('menu/m2'); ?>
+    <!--/ End Header -->
+
+    <!-- Product Style -->
+    <?php
+		if($this->agent->is_mobile()){
+		?>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card lengkung">
+                <div class="card-body">
+                    <?php foreach($record as $row): ?>
+                    <h4><?php echo $row['nama_produk']; ?></h4>
+                    <br />
+                    <p>
+                        Total Pembayaran:
+                        <br />
+                        Rp.<?= number_format($row['total'], 0, ",", "."); ?>
+                        <br />
+                        <br />
+                        Status Bayar:
+                        <br />
+                        <?php if($row['status_bayar'] == 'Sudah Bayar'): ?>
+                        <span class="badge badge-primary">Sudah Bayar</span>
+                        <?php else: ?>
+                        <span class="badge badge-danger">Belum Bayar</span>
+                        <?php endif; ?>
+                        <br />
+                        <br />
+                        Status Kirim:
+                        <br />
+                        <?php if($row['status_kirim'] == 'Dikemas'): ?>
+                        <span class="badge badge-info">Dikemas</span>
+                        <?php elseif($row['status_kirim'] == 'Dikirim'): ?>
+                        <span class="badge badge-primary">Dikirim</span>
+                        <?php else: ?>
+                        <span class="badge badge-success">Selesai</span>
+                        <?php endif; ?>
+                    </p>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php }else{ ?>
+    <section class="product-area shop-sidebar shop section">
+        <div class="container">
+            <h3 class="mb-4">Pesanan</h3>
+            <table class="table table-bordered table-stripped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Pelanggan</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
+                        <th>Status Bayar</th>
+                        <th>Status Kirim</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($record as $row): ?>
+                    <tr>
+                        <td><?= $n++; ?></td>
+                        <td><?= $row['nama_lengkap']; ?></td>
+                        <td><?= $row['tanggal']; ?></td>
+                        <td>Rp.<?= number_format($row['total'], 2, ",", "."); ?></td>
+                        <td>
+                            <?php if($row['status_bayar'] == 'Sudah Bayar'): ?>
+                            <span class="badge badge-primary">Sudah Bayar</span>
+                            <?php else: ?>
+                            <span class="badge badge-danger">Belum Bayar</span>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($row['status_kirim'] == 'Dikemas'): ?>
+                            <span class="badge badge-info">Dikemas</span>
+                            <?php elseif($row['status_kirim'] == 'Dikirim'): ?>
+                            <span class="badge badge-primary">Dikirim</span>
+                            <?php else: ?>
+                            <span class="badge badge-success">Selesai</span>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <?php } ?>
+    <!--/ End Product Style 1  -->
+
+    <!-- Start Footer Area -->
+    <footer class="footer">
+        <!-- Footer Top -->
+        <div class="footer-top section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <!-- Single Widget -->
+                        <div class="single-footer about">
+                            <div class="logo">
+                                <a href="index.html"><img src="<?= base_url('assets/img/srn-logo-white.png'); ?>"
+                                        alt="#"></a>
+                            </div>
+                            <p class="text">Sambal Resep Njenot merupakan sebuah sambal dengan beraneka ragam rasa.</p>
+                            <p class="call">Punya pertanyaan? Hubungi kami.<span><a>0852 5749 5886</a></span></p>
+                        </div>
+                        <!-- End Single Widget -->
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <!-- Single Widget -->
+                        <div class="single-footer social">
+                            <h4>Temukan Kami Di</h4>
+                            <!-- Single Widget -->
+                            <div class="contact">
+                                <ul>
+                                    <li>Jln. Laksa Adisucipto Km. 7,5</li>
+                                    <li>Desa Santan Gang No. 09 No Rumah 69C, Maguoharjo, Depok, Sleman</li>
+                                    <li>info@resepnjenot.com</li>
+                                    <li>0852 5749 5886</li>
+                                </ul>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                        <!-- End Single Widget -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Footer Top -->
+        <div class="copyright">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="left">
+                                <p>Copyright © 2021 Sambal Resep Njenot.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="right">
+                                <img src="<?= base_url('assets/vendor/eshop/images/payments.png'); ?>" alt="#">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- /End Footer Area -->
+
+
     <!-- Jquery -->
     <script src="<?= base_url('assets/vendor/eshop/js/jquery.min.js'); ?>"></script>
     <script src="<?= base_url('assets/vendor/eshop/js/jquery-migrate-3.0.0.js'); ?>"></script>
@@ -305,5 +245,6 @@
     <script src="<?= base_url('assets/vendor/eshop/js/easing.js'); ?>"></script>
     <!-- Active JS -->
     <script src="<?= base_url('assets/vendor/eshop/js/active.js'); ?>"></script>
-  </body>
+</body>
+
 </html>

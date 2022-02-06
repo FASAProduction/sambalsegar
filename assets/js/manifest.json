@@ -1,24 +1,33 @@
 {
-	"name": "Sambal RN App",
+	"name": "Sambal Resep Njenot App",
 	"short_name": "SRN",
-	"description": "Sebuah website ecommerce penjualan sambal",
-	"lang": "id-ID",
-	"dir": "ltr",
-	"theme_color": "#414f57",
 	"start_url": "../../",
-	"background_color": "#000",
+	"scope": "../../",
 	"display": "standalone",
+	"background_color": "#F7941D",
+	"theme_color": "#F7941D",
+	"description": "Sambal RN adalah sebuah website marketplace untuk pembelian sambal RN.",
+	"dir": "ltr",
+	"lang": "id-ID",
 	"orientation": "portrait-primary",
 	"icons": [
 		{
-			"src": "../../assets/img/srn-logo.png",
-			"sizes": "72x72",
-			"type": "image/png"
+			"src": "../img/srn-48.png",
+			"type": "image/png",
+			"size": "48x48"
 		},
 		{
-			"src": "../../assets/img/srn-logo.png",
-			"sizes": "512x512",
-			"type": "image/png"
+			"src": "../img/srn-64.png",
+			"type": "image/png",
+			"size": "64x64"
+		}
+	],
+	"prefer_related_applications": "false",
+	"related_applications": [
+		{
+			"platform": "play",
+			"url": "https://play.google.com/store/......",
+			"id": "com.example.app"
 		}
 	]
 }

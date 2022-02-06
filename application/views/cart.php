@@ -38,6 +38,11 @@
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/reset.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/style.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/responsive.css'); ?>">
+	<style>
+	.lengkung{
+		border-radius: 20px 20px;
+	}
+	</style>
 </head>
 
 <body class="js">
@@ -58,7 +63,36 @@
     <!--/ End Header -->
 
     <!-- Product Style -->
-    <section class="product-area shop-sidebar shop section">
+    <?php
+	if($this->agent->is_mobile()){
+	?>
+	<section class="product-area shop-sidebar shop section">
+        <div class="container">
+		<h3 class="mb-4">Keranjang</h3>
+            <div class="row">
+				<div class="col-md-6">
+					<div class="card lengkung">
+						<div class="card-body">
+						<?php foreach($record as $row): ?>
+						<h4><?php echo $row['nama_produk']; ?></h4>
+						<br/>
+						<p><?php echo $row['qty']; ?>x | Rp.<?php echo number_format(($row['qty'] * $row['harga']), 0, ",", "."); ?></p>
+						<a href="<?= base_url('cart/delete/' . $row['id_produk']); ?>"
+                                onclick="return confirm('Hapus produk ini?')" class="text-danger"><i class="fa fa-trash"></i></a>
+						<hr/>
+						<?php endforeach; ?>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<br/>
+            <a href="<?= base_url('cart/checkout'); ?>" class="btn btn-primary">Checkout</a>
+            <a href="<?= base_url(); ?>" class="btn btn-primary" style="color: #fff;">Lanjutkan Belanja</a>
+        </div>
+    </section>
+	<?php }else{ ?>
+	<section class="product-area shop-sidebar shop section">
         <div class="container">
             <h3 class="mb-4">Keranjang</h3>
             <table class="table table-bordered table-stripped">
@@ -94,6 +128,7 @@
             <a href="<?= base_url(); ?>" class="btn btn-primary" style="color: #fff;">Lanjutkan Belanja</a>
         </div>
     </section>
+	<?php } ?>
     <!--/ End Product Style 1  -->
 
     <!-- Start Footer Area -->

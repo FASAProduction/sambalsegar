@@ -7,6 +7,7 @@ class Home extends CI_Controller {
         parent::__construct();
         $this->load->model('produk_model', 'produk');
         $this->load->model('keranjang_model', 'keranjang');
+        $this->load->library('user_agent');
     }
 
     public function index(){

@@ -9,6 +9,7 @@ class Cart extends CI_Controller {
         $this->load->model('produk_model', 'produk');
         $this->load->model('pemesanan_model', 'pemesanan');
         $this->load->helper('string');
+		$this->load->library('user_agent');
 
         if($this->session->userdata('id_pelanggan') == NULL){
             redirect('home');

@@ -1,0 +1,33 @@
+{
+    "theme_color": "#F7941D",
+    "background_color": "#F7941D",
+    "display": "standalone",
+    "scope": "../../",
+    "start_url": "../../",
+	"lang": "id-ID",
+    "name": "Sambal Resep Njenot App",
+    "short_name": "Sambal RN",
+    "description": "Sambal RN adalah sebuah website marketplace untuk pembelian sambal RN.",
+    "icons": [
+        {
+            "src": "../img/srn192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "../img/srn256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "../img/srn384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "../img/srn500.png",
+            "sizes": "500x500",
+            "type": "image/png"
+        }
+    ]
+}
