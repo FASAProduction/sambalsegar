@@ -68,6 +68,8 @@ class Cart extends CI_Controller {
 
         foreach($record as $row){
             $sum = $row['harga'] * $row['qty'];
+            $stok = $row['qty'];
+            $idp = $row['id_produk'];
             // echo $id_transaksi . ' | ' . $row['id_produk'] . ' | ' . $row['qty'] . ' | ' . $row['harga'] . ' | ' . $sum . '<br>';
             $data = [
                 'id_transaksi' => $id_transaksi,
@@ -77,6 +79,7 @@ class Cart extends CI_Controller {
             ];
             $this->pemesanan->insert_detail_transaksi($data);
             $this->keranjang->delete($row['id_produk']);
+            $this->db->query("UPDATE produk SET stok=stok - '$stok' WHERE id_produk='$idp'");
         }
 
         return redirect('order');

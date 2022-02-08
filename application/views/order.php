@@ -122,7 +122,9 @@
                     <?php foreach($record as $row): ?>
                     <tr>
                         <td><?= $n++; ?></td>
-                        <td><?= $row['nama_produk']; ?></td>
+                        <td><a href="" data-toggle="modal"
+                                data-target="#order<?php echo $row['id_transaksi']; ?>"><?= $row['nama_produk']; ?></a>
+                        </td>
                         <td><?= $row['tanggal']; ?></td>
                         <td>Rp.<?= number_format($row['total'], 0, ",", "."); ?></td>
                         <td>
@@ -149,7 +151,51 @@
     </section>
     <?php } ?>
     <!--/ End Product Style 1  -->
-
+    <!-- Start Modals -->
+    <?php
+    foreach($record as $data):
+    ?>
+    <div class="modal fade" id="order<?php echo $data['id_transaksi']; ?>" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ID Transaksi -
+                        <?php echo strtoupper($data['id_transaksi']); ?>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Anda berhasil melakukan transaksi dengan detail sebagai berikut:
+                    <br />
+                    <br />
+                    ID Transaksi : <?php echo strtoupper($data['id_transaksi']); ?>
+                    <br />
+                    <?php
+                    foreach($count_prod as $hitung):
+                    ?>
+                    Jumlah Produk: <?php echo $hitung->htg; ?>
+                    <?php endforeach; ?>
+                    <br />
+                    Detail Produk:
+                    <?php
+                    foreach($det_prod as $product):
+                    ?>
+                    <?php echo $product->nama_produk; ?>
+                    <hr />
+                    <?php endforeach; ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
+    <!--/ End Modals -->
     <!-- Start Footer Area -->
     <footer class="footer">
         <!-- Footer Top -->
