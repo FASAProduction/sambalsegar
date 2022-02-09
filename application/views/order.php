@@ -47,7 +47,7 @@
 
 <body class="js">
 
-    <!-- Preloader -->
+    <!-- Preloader 
     <div class="preloader">
         <div class="preloader-inner">
             <div class="preloader-icon">
@@ -56,7 +56,7 @@
             </div>
         </div>
     </div>
-    <!-- End Preloader -->
+     End Preloader -->
 
     <!-- Header -->
     <?php $this->load->view('menu/m2'); ?>
@@ -111,7 +111,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Pelanggan</th>
+                        <th>Nama Produk</th>
                         <th>Tanggal</th>
                         <th>Total</th>
                         <th>Status Bayar</th>
@@ -122,9 +122,9 @@
                     <?php foreach($record as $row): ?>
                     <tr>
                         <td><?= $n++; ?></td>
-                        <td><?= $row['nama_lengkap']; ?></td>
+                        <td><?= $row['nama_produk']; ?></td>
                         <td><?= $row['tanggal']; ?></td>
-                        <td>Rp.<?= number_format($row['total'], 2, ",", "."); ?></td>
+                        <td>Rp.<?= number_format($row['total'], 0, ",", "."); ?></td>
                         <td>
                             <?php if($row['status_bayar'] == 'Sudah Bayar'): ?>
                             <span class="badge badge-primary">Sudah Bayar</span>

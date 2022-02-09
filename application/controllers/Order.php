@@ -16,7 +16,13 @@ class Order extends CI_Controller {
 
     public function index(){
         $data['title'] = 'Pemesanan';
-        $data['record'] = $this->db->query("SELECT * FROM transaksi JOIN detail_transaksi ON transaksi.id_transaksi=detail_transaksi.id_transaksi");
+        $pelanggan = $this->session->userdata('id_pelanggan');
+        $data['record'] = $this->db->query("SELECT * FROM transaksi
+        JOIN detail_transaksi
+        ON transaksi.id_transaksi=detail_transaksi.id_transaksi
+        JOIN produk
+        ON produk.id_produk=detail_transaksi.id_produk
+        WHERE id_pelanggan='$pelanggan' GROUP BY transaksi.id_transaksi")->result_array();
         $data['total_cart'] = $this->keranjang->get()->num_rows();
         $data['n'] = 1;
 
