@@ -103,20 +103,6 @@
                                 required>
                         </div>
                         <div class="form-group">
-                            <select class="form-control" name="jenis_kelamin" required>
-                                <option value="">-- Pilih salah satu jenis kelamin Anda --</option>
-                                <option value="Laki-Laki">Laki-Laki</option>
-                                <option value="Perempuan">Perempuan</option>
-                            </select>
-                        </div>
-                        <br/>
-                        <br/>
-                        <div class="form-group">
-                            <label for="tgllahir">Tanggal Lahir</label>
-                            <input type="date" class="form-control" name="tanggal_lahir"
-                                placeholder="Tanggal Lahir Anda" required>
-                        </div>
-                        <div class="form-group">
                             <label for="alamat">Alamat</label>
                             <textarea class="form-control" name="alamat" rows="10" placeholder="Masukkan Alamat Anda"
                                 required></textarea>

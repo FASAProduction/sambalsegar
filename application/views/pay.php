@@ -63,123 +63,104 @@
     <!--/ End Header -->
 
     <!-- Product Style -->
-    <?php
-		if($this->agent->is_mobile()){
-		?>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card lengkung">
-                <div class="card-body">
-                    <?php foreach($record as $row): ?>
-                    <h4><?php echo $row['nama_produk']; ?></h4>
-                    <br />
-                    <p>
-                        Total Pembayaran:
-                        <br />
-                        Rp.<?= number_format($row['total'], 0, ",", "."); ?>
-                        <br />
-                        <br />
-                        Status Bayar:
-                        <br />
-                        <?php if($row['status_bayar'] == 'Sudah Bayar'): ?>
-                        <span class="badge badge-primary">Sudah Bayar</span>
-                        <?php else: ?>
-                        <span class="badge badge-danger">Belum Bayar</span>
-                        <?php endif; ?>
-                        <br />
-                        <br />
-                        Status Kirim:
-                        <br />
-                        <?php if($row['status_kirim'] == 'Dikemas'): ?>
-                        <span class="badge badge-info">Dikemas</span>
-                        <?php elseif($row['status_kirim'] == 'Dikirim'): ?>
-                        <span class="badge badge-primary">Dikirim</span>
-                        <?php else: ?>
-                        <span class="badge badge-success">Selesai</span>
-                        <?php endif; ?>
-                    </p>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php }else{ ?>
     <section class="product-area shop-sidebar shop section">
         <div class="container">
-            <h3 class="mb-4">Pesanan</h3>
-            <table class="table table-bordered table-stripped">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Kode Transaksi</th>
-                        <th>Nama Produk</th>
-                        <th>Tanggal</th>
-                        <th>Total</th>
-                        <th>Status Bayar</th>
-                        <th>Status Kirim</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-					foreach($record as $row):
-					$kode = $row['kode_transaksi'];
-					$hsl = $this->db->query("SELECT * FROM produk JOIN transaksi ON transaksi.id_produk=produk.id_produk WHERE kode_transaksi='$kode'")->result();
-					$htg = $this->db->query("SELECT * FROM produk JOIN transaksi ON transaksi.id_produk=produk.id_produk WHERE kode_transaksi='$kode'")->num_rows();
-					$to = $this->db->query("SELECT SUM(total) as totally FROM transaksi WHERE kode_transaksi='$kode'")->result();
+		<center>
+            <h3 class="mb-4">Pembayaran untuk transaksi <?php echo $code; ?></h3>
+		</center>
+			<br/>
+			<br/>
+			<div class="row">
+				<div class="col-md-8">
+					<h4>Detail Pemesanan</h4>
+					<br/>
+					<?php
+					foreach($detail as $det):
+					$kd = $det->kode_transaksi;
+					$a = $this->db->query("SELECT * FROM produk JOIN transaksi ON transaksi.id_produk=produk.id_produk WHERE kode_transaksi='$kd'")->result();
+					$c = $this->db->query("SELECT * FROM produk JOIN transaksi ON transaksi.id_produk=produk.id_produk WHERE kode_transaksi='$kd'")->num_rows();
+					$to = $this->db->query("SELECT SUM(total) as totally FROM transaksi WHERE kode_transaksi='$kd'")->result();
 					?>
-                    <tr>
-                        <td><?= $n++; ?></td>
-                        <td><?php echo $row['kode_transaksi']; ?></td>
-                        <td>
+						Tanggal Pemesanan : <?php echo $det->tanggal; ?> 
+						<br/>
+						Detail Produk :
+						<br/>
+						<br/>
+						<b>
+						<div class="row">
+							<div class="col-md-3">
+							Nama Produk
+							<hr/>
+							</div>
+							<div class="col-md-2">
+							Harga
+							<hr/>
+							</div>
+							<div class="col-md-2">
+							Qty
+							<hr/>
+							</div>
+							<div class="col-md-2">
+							Subtotal
+							<hr/>
+							</div>
+						</div>
+						</b>
 						<?php
-						foreach($hsl as $h):
-						if($htg > 1){
+						foreach($a as $b):
 						?>
-							<?php echo $h->nama_produk; ?> (x<?php echo $h->qty; ?>),  
-						<?php 
-						}else{ ?>
-						<?php echo $h->nama_produk; ?> (x<?php echo $h->qty; ?>)
-						<?php
-						}
-						endforeach; ?>
-                        </td>
-                        <td><?= $row['tanggal']; ?></td>
-						<?php
+						<div class="row">
+							<div class="col-md-3">
+							<?php
+							echo $b->nama_produk;
+							?>
+							</div>
+							<div class="col-md-2">
+							<?php
+							echo rupiah($b->harga);
+							?>
+							</div>
+							<div class="col-md-2">
+							x<?php
+							echo $b->qty;
+							?>
+							</div>
+							<div class="col-md-2">
+							<?php
+							$stotal = $b->harga * $b->qty;
+							echo rupiah($stotal);
+							?>
+							</div>
+						</div>
+						<?php endforeach; 
+						endforeach;
+						?>
+				</div>
+				<div class="col-md-4">
+					<h4>Payment</h4>
+					<br/>
+					<?php
 						foreach($to as $tota):
 						?>
-                        <td>Rp.<?= number_format($tota->totally, 0, ",", "."); ?></td>
-						<?php endforeach; ?>
-                        <td>
-                            <?php if($row['status_bayar'] == 'Sudah Bayar'): ?>
-                            <span class="badge badge-primary">Sudah Bayar</span>
-                            <?php else: ?>
-                            <span class="badge badge-danger">Belum Bayar</span>
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                            <?php if($row['status_kirim'] == 'Dikemas'): ?>
-                            <span class="badge badge-info">Dikemas</span>
-                            <?php elseif($row['status_kirim'] == 'Dikirim'): ?>
-                            <span class="badge badge-primary">Dikirim</span>
-                            <?php else: ?>
-                            <span class="badge badge-success">Selesai</span>
-                            <?php endif; ?>
-                        </td>
-						<td>
-						<?php
-						if($row['status_bayar']=='Belum Bayar'){
-						?>
-						<a href="<?php echo base_url('order/pay'); ?>/<?php echo $row['kode_transaksi']; ?>" class="badge badge-success">Bayar Sekarang</a>
-						<?php }else{ } ?>
-						</td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                        <small>Total Pembayaran</small>
+						<br/>
+						<h3>Rp <?= number_format($tota->totally, 0, ",", "."); ?></h3>
+					<?php endforeach; ?>
+					<br/>
+					<small>Metode Bayar</small>
+					<form>
+						<div class="form-group">
+							<select class="form-control" name="">
+								<option value="">-- Pilih Salah Satu --</option>
+								<option value="COD">COD</option>
+								<option value="BT">Bank Transfer</option>
+							</select>
+						</div>
+					</form>
+				</div>
+			</div>
         </div>
     </section>
-    <?php } ?>
     <!--/ End Product Style 1  -->
     <!-- Start Footer Area -->
     <footer class="footer">

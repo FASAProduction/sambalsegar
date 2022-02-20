@@ -8,6 +8,7 @@ class Order extends CI_Controller {
         $this->load->model('pemesanan_model', 'pemesanan');
         $this->load->model('keranjang_model', 'keranjang');
         $this->load->library('user_agent');
+		$this->load->helper('rupiah_helper');
 
         if($this->session->userdata('id_pelanggan') == NULL){
             redirect('home');
@@ -15,33 +16,23 @@ class Order extends CI_Controller {
     }
 
     public function index(){
-        $data['title'] = 'Pemesanan';
+        $data['title'] = 'Pemesanan - Sambal Resep Njenot';
         $pelanggan = $this->session->userdata('id_pelanggan');
         $data['record'] = $this->db->query("SELECT * FROM transaksi
-        JOIN detail_transaksi
-        ON transaksi.id_transaksi=detail_transaksi.id_transaksi
-        JOIN produk
-        ON produk.id_produk=detail_transaksi.id_produk
-        WHERE id_pelanggan='$pelanggan' GROUP BY transaksi.id_transaksi")->result_array();
-        $record = $this->db->query("SELECT * FROM transaksi
-        JOIN detail_transaksi
-        ON transaksi.id_transaksi=detail_transaksi.id_transaksi
-        JOIN produk
-        ON produk.id_produk=detail_transaksi.id_produk
-        WHERE id_pelanggan='$pelanggan' GROUP BY transaksi.id_transaksi")->result();
-        foreach($record as $cow){
-            $trans = $cow->id_transaksi;
-        }
-        $data['count_prod'] = $this->db->query("SELECT COUNT(produk.id_produk) as htg FROM produk
-        JOIN detail_transaksi ON detail_transaksi.id_produk=produk.id_produk
-        WHERE id_transaksi='$trans'")->result();
-        $data['det_prod'] = $this->db->query("SELECT * FROM produk
-        JOIN detail_transaksi ON detail_transaksi.id_produk=produk.id_produk
-        WHERE id_transaksi='$trans'")->result();
+		JOIN produk
+		ON produk.id_produk=transaksi.id_produk WHERE id_pelanggan='$pelanggan' GROUP BY kode_transaksi")->result_array();
         $data['total_cart'] = $this->keranjang->get()->num_rows();
         $data['n'] = 1;
 
         $this->load->view('order', $data);
     }
+	
+	public function pay($code){
+		$d['title'] = "Pembayaran Transaksi " . $code . " - Sambal Resep Njenot";
+		$d['code'] = $code;
+		$d['detail'] = $this->pemesanan->details($code)->result();
+		$d['total_cart'] = $this->keranjang->get()->num_rows();
+		$this->load->view('pay', $d);
+	}
 
 }

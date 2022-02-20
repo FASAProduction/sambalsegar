@@ -40,5 +40,10 @@ class Pemesanan_model extends CI_Model {
         WHERE tanggal BETWEEN '$awal' AND '$akhir'");
         return $w;
     }
+	
+	function details($code){
+		$s = $this->db->query("SELECT * FROM transaksi JOIN produk ON produk.id_produk=transaksi.id_produk WHERE kode_transaksi='$code' GROUP BY kode_transaksi");
+		return $s;
+	}
 
 }

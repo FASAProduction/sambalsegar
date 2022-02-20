@@ -33,10 +33,9 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Sambal RN</div>
+                <div class="sidebar-brand-text mx-3">
+				<img src="<?php echo base_url('assets/img/srnlogo.png'); ?>" width="70%" />
+				</div>
             </a>
 
             <!-- Divider -->

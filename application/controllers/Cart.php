@@ -18,71 +18,61 @@ class Cart extends CI_Controller {
 
     public function index(){
         $data['no'] = 1;
-        $data['record'] = $this->keranjang->get(['keranjang.id_pelanggan' => $this->session->userdata('id_pelanggan')])->result_array();
-        $data['total_cart'] = $this->keranjang->get()->num_rows();
+		$data['record'] = $this->keranjang->lihat_keranjang()->result_array();
+		$data['total_cart'] = $this->keranjang->lihat_keranjang()->num_rows();
         $this->load->view('cart', $data);
     }
-
-    public function add($id_produk = NULL){
-        if($id_produk == NULL){
-            show_404();
-        }
-
-        $produk = $this->produk->get(['id_produk' => $id_produk])->row_array();
-        $this->keranjang->insert($produk['id_produk'], $produk['harga']);
-        return redirect('cart');
-    }
-
-    public function delete($id_produk = NULL){
-        if($id_produk == NULL){
-            show_404();
-        }
-
-        $this->keranjang->delete($id_produk);
-        return redirect('cart');
-    }
-
-    public function checkout(){
-        $record = $this->keranjang->get(['keranjang.id_pelanggan' => $this->session->userdata('id_pelanggan')])->result_array();
-        
-        $total = 0;
-        foreach($record as $row){
-            $sum = $row['harga'] * $row['qty'];
-            $total += $sum;
-        }
-
-        $id_transaksi = random_string('alnum', 10);
-
-        $data = [
-            'id_transaksi' => $id_transaksi,
-            'id_pelanggan' => $this->session->userdata('id_pelanggan'),
-            'tanggal' => date('Y-m-d'),
-            'total' => $total,
-            'status_bayar' => 'Belum Bayar',
-            'status_kirim' => 'Dikemas',
-        ];
-        $this->pemesanan->insert_transaksi($data);
-
-        // var_dump($data);
-        // echo '<br><br>';
-
-        foreach($record as $row){
-            $sum = $row['harga'] * $row['qty'];
-            $stok = $row['qty'];
-            $idp = $row['id_produk'];
-            // echo $id_transaksi . ' | ' . $row['id_produk'] . ' | ' . $row['qty'] . ' | ' . $row['harga'] . ' | ' . $sum . '<br>';
-            $data = [
-                'id_transaksi' => $id_transaksi,
-                'id_produk' => $row['id_produk'],
-                'qty' => $row['qty'],
-                'subtotal' => $sum,
-            ];
-            $this->pemesanan->insert_detail_transaksi($data);
-            $this->keranjang->delete($row['id_produk']);
-            $this->db->query("UPDATE produk SET stok=stok - '$stok' WHERE id_produk='$idp'");
-        }
-
-        return redirect('order');
-    }
+	
+	public function qty(){
+		$qty = $this->input->post('qty');
+		$id_cart = $this->input->post('id_keranjang');
+		$this->db->query("UPDATE keranjang SET qty='$qty' WHERE id_keranjang='$id_cart'");
+		redirect('cart');
+	}
+	
+	public function add($id_produk){
+		$pel = $this->session->userdata('id_pelanggan');
+		$prd = $this->db->query("SELECT * FROM produk WHERE id_produk='$id_produk'")->result_array();
+		$qtyy = "1";
+		foreach($prd as $pr){
+		$prodd = $pr['harga'];
+		}
+		$this->db->query("INSERT INTO keranjang (id_pelanggan,id_produk,qty)
+		VALUES ('$pel','$id_produk','$qtyy')");
+		redirect('cart');
+	}
+	
+	public function checkout(){
+		$pelang = $this->session->userdata('id_pelanggan');
+		$resi = $this->keranjang->view_keranjang()->result_array();
+		$acak = $this->keranjang->CreateCode();
+		$tgl = date('Y-m-d');
+		$dataa = array();
+		
+		$index = 0;
+		foreach($resi as $da){
+			$produk = $da['prod'];
+			$qty = $da['qty'];
+			$harga = $da['harga'];
+			array_push($dataa, array(
+			'kode_transaksi' => $acak,
+			'id_pelanggan' => $pelang,
+			'id_produk' => $produk,
+			'qty' => $qty,
+			'tanggal' => $tgl,
+			'total' => $harga * $qty,
+			'status_bayar' => "Belum Bayar",
+			'status_kirim' => "Dikemas",
+			));
+		
+			$index++;
+		
+		}
+		
+		$this->db->insert_batch('transaksi',$dataa);
+		$this->db->query("DELETE FROM keranjang WHERE id_pelanggan='$pelang'");
+		redirect('order');
+	}
+ 
 
 }

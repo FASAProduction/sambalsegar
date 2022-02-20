@@ -42,6 +42,14 @@
 	.lengkung{
 		border-radius: 20px 20px;
 	}
+	
+	.pendek{
+		width: 150px;
+	}
+	
+	.jarak{
+		top: -18px;
+	}
 	</style>
 </head>
 
@@ -112,7 +120,12 @@
                         <td><?= $no++; ?></td>
                         <td><?= $row['nama_produk']; ?></td>
                         <td>Rp.<?= number_format($row['harga'], 2, ",", "."); ?></td>
-                        <td><?= $row['qty']; ?></td>
+                        <td><form action="<?php echo base_url('cart/qty'); ?>" method="POST">
+						<input type="hidden" name="id_keranjang" value="<?= $row['id_keranjang']; ?>"  />
+						<input type="text" name="qty" class="form-control pendek" value="<?= $row['qty']; ?>" />
+						<br/>
+						<button type="submit" class="btn btn-success btn-xs jarak">UPDATE QTY</button>
+						</form></td>
                         <td>Rp.<?= number_format(($row['qty'] * $row['harga']), 2, ",", "."); ?></td>
                         <td style="width:10%">
                             <a href="<?= base_url('cart/delete/' . $row['id_produk']); ?>"
