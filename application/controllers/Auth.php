@@ -50,11 +50,9 @@ class Auth extends CI_Controller {
         $email = $this->input->post('email');
         $password = sha1($this->input->post('password'));
         $nama_lengkap = $this->input->post('nama_lengkap');
-        $jenis_kelamin = $this->input->post('jenis_kelamin');
-        $tanggal_lahir = $this->input->post('tanggal_lahir');
         $alamat = $this->input->post('alamat');
         $telepon = $this->input->post('telepon');
-        $this->pelanggan->add_cust($email,$password,$nama_lengkap,$jenis_kelamin,$tanggal_lahir,$alamat,$telepon);
+        $this->pelanggan->add_cust($email,$password,$nama_lengkap,$alamat,$telepon);
         $this->session->set_flashdata('done', '<div class="alert alert-success"><b>BERHASIL BUAT AKUN!</b> Siahkan login dengan akun yang Anda buat.</div>');
         redirect('auth');
     }

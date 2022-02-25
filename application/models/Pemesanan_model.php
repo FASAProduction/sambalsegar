@@ -46,4 +46,9 @@ class Pemesanan_model extends CI_Model {
 		return $s;
 	}
 
+    function pay($kode_transaksi,$payment_method,$bpay){
+        $w = $this->db->query("UPDATE transaksi SET payment_method='$payment_method', payment='$bpay' WHERE kode_transaksi='$kode_transaksi'");
+        return $w;
+    }
+
 }

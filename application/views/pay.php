@@ -42,12 +42,17 @@
     .lengkung {
         border-radius: 20px 20px;
     }
+
+    .sec-lengkung {
+        border-radius: 20px 20px;
+        box-shadow: 0px 0px 4px #c8c8c8;
+    }
     </style>
 </head>
 
 <body class="js">
 
-    <!-- Preloader 
+    <!-- Preloader -->
     <div class="preloader">
         <div class="preloader-inner">
             <div class="preloader-icon">
@@ -56,7 +61,7 @@
             </div>
         </div>
     </div>
-     End Preloader -->
+    <!--/ End Preloader -->
 
     <!-- Header -->
     <?php $this->load->view('menu/m2'); ?>
@@ -65,100 +70,152 @@
     <!-- Product Style -->
     <section class="product-area shop-sidebar shop section">
         <div class="container">
-		<center>
-            <h3 class="mb-4">Pembayaran untuk transaksi <?php echo $code; ?></h3>
-		</center>
-			<br/>
-			<br/>
-			<div class="row">
-				<div class="col-md-8">
-					<h4>Detail Pemesanan</h4>
-					<br/>
-					<?php
-					foreach($detail as $det):
-					$kd = $det->kode_transaksi;
-					$a = $this->db->query("SELECT * FROM produk JOIN transaksi ON transaksi.id_produk=produk.id_produk WHERE kode_transaksi='$kd'")->result();
-					$c = $this->db->query("SELECT * FROM produk JOIN transaksi ON transaksi.id_produk=produk.id_produk WHERE kode_transaksi='$kd'")->num_rows();
-					$to = $this->db->query("SELECT SUM(total) as totally FROM transaksi WHERE kode_transaksi='$kd'")->result();
-					?>
-						Tanggal Pemesanan : <?php echo $det->tanggal; ?> 
-						<br/>
-						Detail Produk :
-						<br/>
-						<br/>
-						<b>
-						<div class="row">
-							<div class="col-md-3">
-							Nama Produk
-							<hr/>
-							</div>
-							<div class="col-md-2">
-							Harga
-							<hr/>
-							</div>
-							<div class="col-md-2">
-							Qty
-							<hr/>
-							</div>
-							<div class="col-md-2">
-							Subtotal
-							<hr/>
-							</div>
-						</div>
-						</b>
-						<?php
+            <center>
+                <h3 class="mb-4">Pembayaran untuk transaksi <?php echo $code; ?></h3>
+            </center>
+            <br />
+            <br />
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card sec-lengkung">
+                        <div class="card-body">
+                            <?php
+					        foreach($detail as $det):
+                            if($det->status_bayar == "Belum Bayar"){
+                            ?>
+                            <span class="badge badge-danger">Belum Bayar</span>
+                            <?php }else{ ?>
+                            <span class="badge badge-info">Sudah Bayar</span>
+                            <?php } ?>
+                            <?php
+                            if($det->status_kirim == "Dikemas"){
+                            ?>
+                            <span class="badge badge-info">Dikemas</span>
+                            <?php }else if($det->status_kirim == "Dikirim"){ ?>
+                            <span class="badge badge-primary">Dikirim</span>
+                            <?php }else{ ?>
+                            <span class="badge badge-success">Selesai</span>
+                            <?php } ?>
+                            <h4>Detail Pemesanan</h4>
+                            <br />
+                            <?php        
+                            $kd = $det->kode_transaksi;
+                            $a = $this->db->query("SELECT * FROM produk JOIN transaksi ON transaksi.id_produk=produk.id_produk WHERE kode_transaksi='$kd'")->result();
+                            $c = $this->db->query("SELECT * FROM produk JOIN transaksi ON transaksi.id_produk=produk.id_produk WHERE kode_transaksi='$kd'")->num_rows();
+                            $to = $this->db->query("SELECT SUM(total) as totally FROM transaksi WHERE kode_transaksi='$kd'")->result();
+                            ?>
+                            Tanggal Pemesanan : <b><?php echo $det->tanggal; ?></b>
+                            <br />
+                            <br />
+                            <b>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        Nama Produk
+                                        <hr />
+                                    </div>
+                                    <div class="col-md-2">
+                                        Harga
+                                        <hr />
+                                    </div>
+                                    <div class="col-md-2">
+                                        Qty
+                                        <hr />
+                                    </div>
+                                    <div class="col-md-2">
+                                        Subtotal
+                                        <hr />
+                                    </div>
+                                </div>
+                            </b>
+                            <?php
 						foreach($a as $b):
 						?>
-						<div class="row">
-							<div class="col-md-3">
-							<?php
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <?php
 							echo $b->nama_produk;
 							?>
-							</div>
-							<div class="col-md-2">
-							<?php
+                                </div>
+                                <div class="col-md-2">
+                                    <?php
 							echo rupiah($b->harga);
 							?>
-							</div>
-							<div class="col-md-2">
-							x<?php
+                                </div>
+                                <div class="col-md-2">
+                                    x<?php
 							echo $b->qty;
 							?>
-							</div>
-							<div class="col-md-2">
-							<?php
+                                </div>
+                                <div class="col-md-2">
+                                    <?php
 							$stotal = $b->harga * $b->qty;
 							echo rupiah($stotal);
 							?>
-							</div>
-						</div>
-						<?php endforeach; 
+                                </div>
+                            </div>
+                            <?php endforeach; 
 						endforeach;
 						?>
-				</div>
-				<div class="col-md-4">
-					<h4>Payment</h4>
-					<br/>
-					<?php
-						foreach($to as $tota):
-						?>
-                        <small>Total Pembayaran</small>
-						<br/>
-						<h3>Rp <?= number_format($tota->totally, 0, ",", "."); ?></h3>
-					<?php endforeach; ?>
-					<br/>
-					<small>Metode Bayar</small>
-					<form>
-						<div class="form-group">
-							<select class="form-control" name="">
-								<option value="">-- Pilih Salah Satu --</option>
-								<option value="COD">COD</option>
-								<option value="BT">Bank Transfer</option>
-							</select>
-						</div>
-					</form>
-				</div>
-			</div>
+                            <br />
+                            <br />
+                            <br />
+                            <i>
+                                - Dimohon untuk membayar paling lambat 1 hari setelah pemesanan.
+                                <br />
+                                - Setelah upload bukti bayar, silahkan konfirmasi kepada kami, melalui WhatsApp:
+                                083xxxxxxxx.
+                                <br />
+                                - Setelah konfirmasi diterima, status bayar Anda menjadi <span
+                                    class="badge badge-info">sudah bayar</span>.
+                            </i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card sec-lengkung">
+                        <div class="card-body">
+                            <h4>Payment</h4>
+                            <form action="<?php echo base_url('order/process_payment'); ?>" method="POST"
+                                enctype="multipart/form-data">
+                                <input type="hidden" name="kode_transaksi" value="<?php echo $kd; ?>" />
+                                <br />
+                                <?php
+                                foreach($to as $tota):
+                                ?>
+                                <small>Total Pembayaran</small>
+                                <br />
+                                <h3>Rp <?= number_format($tota->totally, 0, ",", "."); ?></h3>
+                                <p><b>(<?php echo penyebut($tota->totally); ?> Rupiah)</b></p>
+                                <?php endforeach; ?>
+                                <br />
+                                <small>Metode Bayar</small>
+                                <div class="form-group">
+                                    <select class="form-control" name="payment_method">
+                                        <option value="">-- Pilih Salah Satu --</option>
+                                        <option value="COD">COD</option>
+                                        <option value="BT">Bank Transfer</option>
+                                    </select>
+                                </div>
+                                <br />
+                                <br />
+                                <small>upload bukti pembayaran</small>
+                                <?php
+                                    $now = date('Y_m_d');
+                                    $pela = $this->session->userdata('nama_lengkap');
+                                    $paym = $now . "_" . $pela . "_" . $kd;
+                                ?>
+                                <input type="hidden" name="paymento" value="<?php echo $paym; ?>" />
+                                <div class="form-group">
+                                    <input type="file" name="payment" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-small">Upload Bukti Bayar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <!--/ End Product Style 1  -->
@@ -257,6 +314,13 @@
     <script src="<?= base_url('assets/vendor/eshop/js/easing.js'); ?>"></script>
     <!-- Active JS -->
     <script src="<?= base_url('assets/vendor/eshop/js/active.js'); ?>"></script>
+
+    <script>
+    function chg() {
+        var a = document.getElementById("paymethod").value;
+        document.getElementById("has").value = a;
+    }
+    </script>
 </body>
 
 </html>

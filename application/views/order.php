@@ -132,24 +132,24 @@
                         <td><?= $n++; ?></td>
                         <td><?php echo $row['kode_transaksi']; ?></td>
                         <td>
-						<?php
+                            <?php
 						foreach($hsl as $h):
 						if($htg > 1){
 						?>
-							<?php echo $h->nama_produk; ?> (x<?php echo $h->qty; ?>),  
-						<?php 
+                            <?php echo $h->nama_produk; ?> (x<?php echo $h->qty; ?>),
+                            <?php 
 						}else{ ?>
-						<?php echo $h->nama_produk; ?> (x<?php echo $h->qty; ?>)
-						<?php
+                            <?php echo $h->nama_produk; ?> (x<?php echo $h->qty; ?>)
+                            <?php
 						}
 						endforeach; ?>
                         </td>
                         <td><?= $row['tanggal']; ?></td>
-						<?php
+                        <?php
 						foreach($to as $tota):
 						?>
                         <td>Rp.<?= number_format($tota->totally, 0, ",", "."); ?></td>
-						<?php endforeach; ?>
+                        <?php endforeach; ?>
                         <td>
                             <?php if($row['status_bayar'] == 'Sudah Bayar'): ?>
                             <span class="badge badge-primary">Sudah Bayar</span>
@@ -166,13 +166,10 @@
                             <span class="badge badge-success">Selesai</span>
                             <?php endif; ?>
                         </td>
-						<td>
-						<?php
-						if($row['status_bayar']=='Belum Bayar'){
-						?>
-						<a href="<?php echo base_url('order/pay'); ?>/<?php echo $row['kode_transaksi']; ?>" class="badge badge-success">Bayar Sekarang</a>
-						<?php }else{ } ?>
-						</td>
+                        <td>
+                            <a href="<?php echo base_url('order/detail'); ?>/<?php echo $row['kode_transaksi']; ?>"
+                                class="badge badge-success">Detail</a>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

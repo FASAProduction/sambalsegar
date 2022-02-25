@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set('Asia/Jakarta');
 
 class Cart extends CI_Controller {
 
@@ -9,6 +10,7 @@ class Cart extends CI_Controller {
         $this->load->model('produk_model', 'produk');
         $this->load->model('pemesanan_model', 'pemesanan');
         $this->load->helper('string');
+        $this->load->helper('rupiah_helper');
 		$this->load->library('user_agent');
 
         if($this->session->userdata('id_pelanggan') == NULL){

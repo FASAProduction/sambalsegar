@@ -53,7 +53,7 @@ class Keranjang_model extends CI_Model {
 	}
 	
 	public function CreateCode(){
-    $this->db->select('RIGHT(transaksi.kode_transaksi,5) as kode', FALSE);
+    $this->db->select('RIGHT(transaksi.kode_transaksi,4) as kode', FALSE);
     $this->db->order_by('kode','DESC');    
     $this->db->limit(1);    
     $query = $this->db->get('transaksi');
@@ -64,8 +64,8 @@ class Keranjang_model extends CI_Model {
         else{      
              $kode = 1;  
         }
-    $batas = str_pad($kode, 5, "0", STR_PAD_LEFT);    
-    $kodetampil = "SRN".$batas;
+    $batas = str_pad($kode, 4, "0", STR_PAD_LEFT);    
+    $kodetampil = "TR-SRN".$batas;
     return $kodetampil;  
 }
 

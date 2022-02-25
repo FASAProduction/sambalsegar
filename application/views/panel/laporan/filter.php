@@ -22,21 +22,17 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-filter"></i>
                                 Filter</button>
-                            <a href="<?php echo base_url('panel/periodicpdf'); ?>?from=<?php echo $aw; ?>&to=<?php echo $akh; ?>"
+                            <a href="<?php echo base_url('panel/laporan/allfakturperiodic'); ?>/from=<?php echo $aw; ?>&to=<?php echo $akh; ?>"
                                 class="btn btn-info" target="__blank"><i class="fas fa-fw fa-eye"></i> Preview PDF</a>
-                            <a href="<?php echo base_url('panel/periodicpdf/download'); ?>?from=<?php echo $aw; ?>&to=<?php echo $akh; ?>"
-                                class="btn btn-success"><i class="fas fa-fw fa-download"></i> Download PDF</a>
                         </div>
                     </form>
                 </div>
                 <div class="col-md-6">
                     <h4>Filter untuk bulan ini</h4>
                     <br />
-                    <a href="<?php echo base_url('panel/thismonthpdf'); ?>" class="btn btn-primary btn-block"><i
+                    <a href="<?php echo base_url('panel/laporan/fakturmonth'); ?>" class="btn btn-primary btn-block"><i
                             class="fas fa-fw fa-eye"></i> Preview
                         PDF</a>
-                    <a href="<?php echo base_url('panel/thismonthpdf/download'); ?>"
-                        class="btn btn-success btn-block"><i class="fas fa-fw fa-download"></i> Download PDF</a>
 
                 </div>
             </div>
@@ -85,7 +81,8 @@
                                     <i class="fas fa-money-bill-wave"></i>
                                 </a>
                                 <?php else: ?>
-                                <a href="#!" class="btn btn-primary">
+                                <a href="<?php echo base_url('panel/laporan/faktur/'); ?><?php echo $rowa->kode_transaksi; ?>"
+                                    class="btn btn-primary">
                                     <i class="fas fa-receipt"></i>
                                 </a>
                                 <?php endif; ?>

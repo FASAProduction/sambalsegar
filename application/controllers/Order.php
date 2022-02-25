@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set('Asia/Jakarta');
 
 class Order extends CI_Controller {
 
@@ -9,6 +10,8 @@ class Order extends CI_Controller {
         $this->load->model('keranjang_model', 'keranjang');
         $this->load->library('user_agent');
 		$this->load->helper('rupiah_helper');
+		$this->load->helper('tanggal_helper');
+		$this->load->helper('terbilang_helper');
 
         if($this->session->userdata('id_pelanggan') == NULL){
             redirect('home');
@@ -27,12 +30,37 @@ class Order extends CI_Controller {
         $this->load->view('order', $data);
     }
 	
-	public function pay($code){
+	public function detail($code){
 		$d['title'] = "Pembayaran Transaksi " . $code . " - Sambal Resep Njenot";
 		$d['code'] = $code;
 		$d['detail'] = $this->pemesanan->details($code)->result();
 		$d['total_cart'] = $this->keranjang->get()->num_rows();
 		$this->load->view('pay', $d);
+	}
+	
+	public function process_payment(){
+		$kode_transaksi = $this->input->post('kode_transaksi', TRUE);
+		$payment_method = $this->input->post('payment_method', TRUE);
+		$paymento = $this->input->post('paymento');
+		$config['upload_path']          = 'assets/img/payment';
+		$config['allowed_types']        = 'jpg|jpeg|png';
+		$config['payment']            	= $paymento;
+		$config['overwrite']            = true;
+		$config['max_size']             = 6024; // 1MB
+		$config['max_width']            = 800;
+		$config['max_height']           = 700;
+
+		$this->load->library('upload', $config);
+
+		if (!$this->upload->do_upload('payment')) {
+			$data['error'] = $this->upload->display_errors();
+		} else {
+			$b = array('payment' => $this->upload->data());
+			$bpay = $b['payment']['file_name'];
+			$this->pemesanan->pay($kode_transaksi,$payment_method,$bpay);
+		}
+
+	redirect('order');
 	}
 
 }

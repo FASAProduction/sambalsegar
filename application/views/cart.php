@@ -38,19 +38,31 @@
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/reset.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/style.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/eshop/css/responsive.css'); ?>">
-	<style>
-	.lengkung{
-		border-radius: 20px 20px;
-	}
-	
-	.pendek{
-		width: 150px;
-	}
-	
-	.jarak{
-		top: -18px;
-	}
-	</style>
+    <style>
+    .lengkung {
+        border-radius: 20px 20px;
+    }
+
+    .pendek {
+        width: 150px;
+    }
+
+    .jarak {
+        top: -18px;
+    }
+
+    .cekot {
+        border-radius: 20px 20px;
+        right: -1000px;
+        bottom: 52px;
+        color: #fff;
+    }
+
+    .total {
+        margin-left: 748px;
+        margin-top: -54px;
+    }
+    </style>
 </head>
 
 <body class="js">
@@ -74,33 +86,35 @@
     <?php
 	if($this->agent->is_mobile()){
 	?>
-	<section class="product-area shop-sidebar shop section">
+    <section class="product-area shop-sidebar shop section">
         <div class="container">
-		<h3 class="mb-4">Keranjang</h3>
+            <h3 class="mb-4">Keranjang</h3>
             <div class="row">
-				<div class="col-md-6">
-					<div class="card lengkung">
-						<div class="card-body">
-						<?php foreach($record as $row): ?>
-						<h4><?php echo $row['nama_produk']; ?></h4>
-						<br/>
-						<p><?php echo $row['qty']; ?>x | Rp.<?php echo number_format(($row['qty'] * $row['harga']), 0, ",", "."); ?></p>
-						<a href="<?= base_url('cart/delete/' . $row['id_produk']); ?>"
-                                onclick="return confirm('Hapus produk ini?')" class="text-danger"><i class="fa fa-trash"></i></a>
-						<hr/>
-						<?php endforeach; ?>
-						</div>
-					</div>
-				</div>
-			</div>
-			<br/>
-			<br/>
-            <a href="<?= base_url('cart/checkout'); ?>" class="btn btn-primary">Checkout</a>
+                <div class="col-md-6">
+                    <div class="card lengkung">
+                        <div class="card-body">
+                            <?php foreach($record as $row): ?>
+                            <h4><?php echo $row['nama_produk']; ?></h4>
+                            <br />
+                            <p><?php echo $row['qty']; ?>x |
+                                Rp.<?php echo number_format(($row['qty'] * $row['harga']), 0, ",", "."); ?></p>
+                            <a href="<?= base_url('cart/delete/' . $row['id_produk']); ?>"
+                                onclick="return confirm('Hapus produk ini?')" class="text-danger"><i
+                                    class="fa fa-trash"></i></a>
+                            <hr />
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <a href="<?= base_url('cart/checkout'); ?>" class="btn btn-primary cekot">Checkout</a>
             <a href="<?= base_url(); ?>" class="btn btn-primary" style="color: #fff;">Lanjutkan Belanja</a>
         </div>
     </section>
-	<?php }else{ ?>
-	<section class="product-area shop-sidebar shop section">
+    <?php }else{ ?>
+    <section class="product-area shop-sidebar shop section">
         <div class="container">
             <h3 class="mb-4">Keranjang</h3>
             <table class="table table-bordered table-stripped">
@@ -115,18 +129,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($record as $row): ?>
+                    <?php
+                    $totala = 0; 
+                    foreach($record as $row): ?>
                     <tr>
                         <td><?= $no++; ?></td>
                         <td><?= $row['nama_produk']; ?></td>
                         <td>Rp.<?= number_format($row['harga'], 2, ",", "."); ?></td>
-                        <td><form action="<?php echo base_url('cart/qty'); ?>" method="POST">
-						<input type="hidden" name="id_keranjang" value="<?= $row['id_keranjang']; ?>"  />
-						<input type="text" name="qty" class="form-control pendek" value="<?= $row['qty']; ?>" />
-						<br/>
-						<button type="submit" class="btn btn-success btn-xs jarak">UPDATE QTY</button>
-						</form></td>
-                        <td>Rp.<?= number_format(($row['qty'] * $row['harga']), 2, ",", "."); ?></td>
+                        <td>
+                            <form action="<?php echo base_url('cart/qty'); ?>" method="POST">
+                                <input type="hidden" name="id_keranjang" value="<?= $row['id_keranjang']; ?>" />
+                                <input type="text" name="qty" class="form-control pendek" value="<?= $row['qty']; ?>" />
+                                <br />
+                                <button type="submit" class="btn btn-success btn-xs jarak">UPDATE QTY</button>
+                            </form>
+                        </td>
+                        <?php
+                        $subtotal = $row['harga'] * $row['qty'];
+                        $totala += $subtotal;
+                        ?>
+                        <td>Rp.<?= number_format(($subtotal), 2, ",", "."); ?></td>
                         <td style="width:10%">
                             <a href="<?= base_url('cart/delete/' . $row['id_produk']); ?>"
                                 onclick="return confirm('Hapus produk ini?')" class="text-danger">
@@ -137,11 +159,12 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <a href="<?= base_url('cart/checkout'); ?>" class="btn btn-primary">Checkout</a>
             <a href="<?= base_url(); ?>" class="btn btn-primary" style="color: #fff;">Lanjutkan Belanja</a>
+            <h1 class="total"><?php echo rupiah($totala); ?></h1>
+            <a href="<?= base_url('cart/checkout'); ?>" class="btn btn-primary cekot">Checkout</a>
         </div>
     </section>
-	<?php } ?>
+    <?php } ?>
     <!--/ End Product Style 1  -->
 
     <!-- Start Footer Area -->
