@@ -12,20 +12,9 @@ class Produk_model extends CI_Model {
         return $this->db->get('produk');
     }
 
-    public function insert(){
-        $data = [
-            'nama_produk' => $this->input->post('nama_produk'),
-            'deskripsi' => $this->input->post('deskripsi'),
-            'stok' => $this->input->post('stok'),
-            'harga' => $this->input->post('harga'),
-            'gambar' => $this->_upload(),
-        ];
-
-        if($this->session->userdata('id_produsen')){
-            $data['id_produsen'] = $this->session->userdata('id_produsen');
-        }
-
-        $this->db->insert('produk', $data);
+    public function add($id_admin,$nama_produk,$deskripsi,$stok,$harga,$bpic){
+        $d = $this->db->query("INSERT INTO produk (id_admin,nama_produk,deskripsi,stok,harga,bpic) VALUES ('$id_admin','$nama_produk','$deskripsi','$stok','$harga','$bpic')");
+        return $d;
     }
 
     public function update($id_produk){

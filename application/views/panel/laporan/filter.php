@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-filter"></i>
                                 Filter</button>
-                            <a href="<?php echo base_url('panel/laporan/allfakturperiodic'); ?>/from=<?php echo $aw; ?>&to=<?php echo $akh; ?>"
+                            <a href="<?php echo base_url('panel/laporan/fakturperiodic'); ?>?from=<?php echo $aw; ?>&to=<?php echo $akh; ?>"
                                 class="btn btn-info" target="__blank"><i class="fas fa-fw fa-eye"></i> Preview PDF</a>
                         </div>
                     </form>
@@ -75,7 +75,7 @@
                             </td>
                             <td>
                                 <?php if($rowa->status_bayar == 'Belum Bayar'): ?>
-                                <a href="<?= base_url('panel/pemesanan/paid/' . $rowa->id_transaksi); ?>"
+                                <a href="<?= base_url('panel/pemesanan/paid/' . $rowa->kode_transaksi); ?>"
                                     class="btn btn-primary"
                                     onclick="return confirm('Ubah status bayar menjadi sudah bayar?')">
                                     <i class="fas fa-money-bill-wave"></i>
@@ -88,12 +88,12 @@
                                 <?php endif; ?>
 
                                 <?php if($rowa->status_kirim == 'Dikemas'): ?>
-                                <a href="<?= base_url('panel/pemesanan/send/' . $rowa->id_transaksi); ?>"
+                                <a href="<?= base_url('panel/pemesanan/send/' . $rowa->kode_transaksi); ?>"
                                     class="btn btn-info" onclick="return confirm('Ubah status kirim menjadi dikirim?')">
                                     <i class="fas fa-truck"></i>
                                 </a>
                                 <?php elseif($rowa->status_kirim == 'Dikirim'): ?>
-                                <a href="<?= base_url('panel/pemesanan/done/' . $rowa->id_transaksi); ?>"
+                                <a href="<?= base_url('panel/pemesanan/done/' . $rowa->kode_transaksi); ?>"
                                     class="btn btn-primary"
                                     onclick="return confirm('Ubah status kirim menjadi selesai?')">
                                     <i class="fas fa-check-double"></i>

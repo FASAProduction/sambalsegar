@@ -23,7 +23,7 @@ class Order extends CI_Controller {
         $pelanggan = $this->session->userdata('id_pelanggan');
         $data['record'] = $this->db->query("SELECT * FROM transaksi
 		JOIN produk
-		ON produk.id_produk=transaksi.id_produk WHERE id_pelanggan='$pelanggan' GROUP BY kode_transaksi")->result_array();
+		ON produk.id_produk=transaksi.id_produk WHERE id_pelanggan='$pelanggan' GROUP BY kode_transaksi ORDER BY kode_transaksi")->result_array();
         $data['total_cart'] = $this->keranjang->get()->num_rows();
         $data['n'] = 1;
 

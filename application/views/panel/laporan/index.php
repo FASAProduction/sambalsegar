@@ -19,7 +19,7 @@
                             <input type="date" name="akhir" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-block"><i class="fas fa-fw fa-filter"></i>
+                            <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-filter"></i>
                                 Filter</button>
                         </div>
                     </form>
@@ -27,11 +27,9 @@
                 <div class="col-md-6">
                     <h4>Filter untuk bulan ini</h4>
                     <br />
-                    <a href="<?php echo base_url('panel/thismonthpdf'); ?>" class="btn btn-primary btn-block"><i
+                    <a href="<?php echo base_url('panel/laporan/fakturmonth'); ?>" class="btn btn-primary btn-block"><i
                             class="fas fa-fw fa-eye"></i> Preview
                         PDF</a>
-                    <a href="<?php echo base_url('panel/thismonthpdf/download'); ?>"
-                        class="btn btn-success btn-block"><i class="fas fa-fw fa-download"></i> Download PDF</a>
 
                 </div>
             </div>

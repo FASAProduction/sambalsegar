@@ -25,20 +25,38 @@ class Produk extends CI_Controller {
 
     public function add(){
         $data['title'] = 'Data Produk';
+        $this->load->view('panel/templates/header', $data);
+        $this->load->view('panel/produk/add');
+        $this->load->view('panel/templates/footer');
+    }
 
-        $this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required|trim');
-        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required|trim');
-        $this->form_validation->set_rules('stok', 'Stok', 'required|trim');
-        $this->form_validation->set_rules('harga', 'Harga', 'required|trim');
+    public function add_process(){
+        $adm = $this->session->userdata('id_admin');
+        $id_admin = $adm;
+        $nama_produk = $this->input->post('nama_produk');
+        $deskripsi = $this->input->post('deskripsi');
+        $stok = $this->input->post('stok');
+        $harga = $this->input->post('harga');
+        $config['upload_path']          = 'assets/img/products';
+		$config['allowed_types']        = 'jpg|jpeg|png';
+		$config['gambar']            	= $nama_produk;
+		$config['overwrite']            = true;
+		$config['max_size']             = 6024; // 1MB
+		$config['max_width']            = 800;
+		$config['max_height']           = 700;
 
-        if($this->form_validation->run() === false){
-            $this->load->view('panel/templates/header', $data);
-            $this->load->view('panel/produk/add');
-            $this->load->view('panel/templates/footer');
-        }else{
-            $this->produk->insert();
-            redirect('panel/produk');
-        }
+		$this->load->library('upload', $config);
+
+		if (!$this->upload->do_upload('gambar')) {
+			$data['error'] = $this->upload->display_errors();
+		} else {
+			$b = array('gambar' => $this->upload->data());
+			$bpic = $b['gambar']['file_name'];
+			$this->produk->add($id_admin,$nama_produk,$deskripsi,$stok,$harga,$bpic);
+            $this->session->set_flashdata('yey', '<div class="alert alert-success">Berhasil!</div>');
+		}
+
+        redirect('panel/produk');
     }
 
     public function edit($id_produk = null){

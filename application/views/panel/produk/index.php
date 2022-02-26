@@ -3,7 +3,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Tabel Data Produk</h1>
-
+    <?php echo $this->session->flashdata('yey'); ?>
     <a href="<?= base_url('panel/produk/add'); ?>" class="btn btn-primary mb-4">
         <i class="fas fa-plus"></i> Tambah Baru
     </a>

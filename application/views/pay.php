@@ -188,6 +188,11 @@
                                 <p><b>(<?php echo penyebut($tota->totally); ?> Rupiah)</b></p>
                                 <?php endforeach; ?>
                                 <br />
+                                <?php
+                                $gbr = $this->db->query("SELECT * FROM transaksi WHERE kode_transaksi='$kd' GROUP BY kode_transaksi")->result();
+                                foreach($gbr as $pic):
+                                if($pic->payment == null){
+                                ?>
                                 <small>Metode Bayar</small>
                                 <div class="form-group">
                                     <select class="form-control" name="payment_method">
@@ -211,6 +216,15 @@
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-success btn-small">Upload Bukti Bayar</button>
                                 </div>
+                                <?php }else{ ?>
+                                <br />
+                                <small>Bukti Pembayaran</small>
+                                <br />
+                                <img src="<?php echo base_url(); ?>assets/img/payment/<?php echo $det->payment; ?>"
+                                    width="50%" />
+                                <?php }
+                                endforeach; 
+                                ?>
                             </form>
                         </div>
                     </div>

@@ -11,6 +11,7 @@
     $ktr = $pemesanan['kode_transaksi'];
     $f = $this->db->query("SELECT SUM(total) as totall FROM transaksi WHERE kode_transaksi='$ktr'")->row_array();
     $record = $this->db->query("SELECT * FROM transaksi JOIN produk ON produk.id_produk=transaksi.id_produk WHERE kode_transaksi='$ktr'")->result_array();
+    $gbr = $this->db->query("SELECT * FROM transaksi WHERE kode_transaksi='$ktr' GROUP BY kode_transaksi")->result();
     ?>
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -49,6 +50,15 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <br />
+                <br />
+                <h4>Bukti Bayar</h4>
+                <br />
+                <?php
+                foreach($gbr as $pic):
+                ?>
+                <img src="<?php echo base_url(); ?>assets/img/payment/<?php echo $pic->payment; ?>" width="30%" />
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

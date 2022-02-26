@@ -73,6 +73,7 @@ class Cart extends CI_Controller {
 		
 		$this->db->insert_batch('transaksi',$dataa);
 		$this->db->query("DELETE FROM keranjang WHERE id_pelanggan='$pelang'");
+		$this->db->query("UPDATE produk SET stok=stok - '$qty' WHERE id_produk='$produk'");
 		redirect('order');
 	}
  
